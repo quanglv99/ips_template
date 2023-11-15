@@ -1,0 +1,23 @@
+<div class='card-body'
+       *ngIf='work'>
+    <div class='row'>
+      <div class='col-md-8'>
+        <div class='row'>
+          <div class='col-md-4'>Chi Nhánh:</div>
+          <div class='col-md-8'>{{work.branchname}}</div>
+        </div>
+        <div class='row'>
+          <div class='col-md-4'>Ngày tạo:</div>
+          <div class='col-md-8'>{{work.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</div>
+        </div>
+        <div class='row'>
+          <div class='col-md-4'>Người nhận:</div>
+          <div class='col-md-8'>{{work.targetOwner}}</div>
+        </div>
+        <div class='row'>
+          <div class='col-md-4'>Status:</div>
+          <div class='col-md-8'>{{work.status}}</div>
+        </div>
+      </div>
+    </div>
+</div>

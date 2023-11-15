@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-12">
+        <mat-card class="card-profile">
+            <mat-card-title>Thông tin cơ bản</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content class="row">
+                <div class="col-6">
+                    <div class="bio-row">
+                        <p><span>Mã nhân viên</span>VIB00011</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Họ và tên</span>Lo Van Quang</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Jobcode</span>4.0729 - Trưởng BQL</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Email</span>quanglv.itc@gmail.com</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Trạng thái truy cập</span>Active</p>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="bio-row">
+                        <p><span>Danh xưng</span>Mr</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Số CCCD</span>014099007354</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Loại hợp đồng</span>Hợp đồng năm</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Ngày hết hạn hợp đồng</span>01/07/2027</p>
+                    </div>
+                    <div class="bio-row">
+                        <p><span>Trạng thái làm việc</span>Bình thường</p>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-biometric">
+            <mat-card-title>Thông tin sinh trắc học</mat-card-title>
+            <mat-divider></mat-divider>
+            <mat-card-content>
+                <button mat-stroked-button class="right-btn">Cần hỗ trợ</button>
+                <button mat-raised-button color="primary" class="right-btn" [disabled]="!fileChosen">Save</button>
+                <form class="form-input">
+                    <div class="col-6">
+                        <div class="bio-row">
+                            <p><span>Trạng thái:</span>Chưa đăng ký</p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Ảnh mặt trước CCCD</span><input type="file" name="font" accept="image/png, image/jpeg"
+                                    (change)="onFileSelected($event, 'font')" /></p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Ảnh mặt sau CCCD</span><input type="file" name="back" accept="image/png, image/jpeg"
+                                    (change)="onFileSelected($event, 'back')" /></p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Ảnh chân dung</span><input type="file" name="avatar" accept="image/png, image/jpeg"
+                                    (change)="onFileSelected($event, 'avatar')" /></p>
+                        </div>
+                        <div class="bio-row">
+                            <p><span>Khác</span><input type="file" name="others"
+                                    (change)="onFileSelected($event, 'others')" /></p>
+                        </div>
+                    </div>
+                </form>
+            </mat-card-content>
+        </mat-card>
+        <mat-card class="card-other">
+            <mat-card-title>Thông tin khác</mat-card-title>
+            <mat-card-content>
+
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
