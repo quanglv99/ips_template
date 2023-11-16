@@ -11,14 +11,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MyworkService } from 'src/app/services/mywork.service';
+import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MyworkDetailPopupComponent } from 'src/app/popups/mywork-detail-popup/mywork-detail-popup.component';
 
 export interface MyWorkModel {
   id: number;
   branchname: string;
-  createdAt: string;
+  member: string;
   startDate: string;
   endDate: string;
-  targetOwner: string;
+  employee: string;
+  note:string;
+  createdDate: string;
+  updatedDate: string;
   status: string;
 }
 
@@ -26,65 +31,86 @@ const ELEMENT_DATA: MyWorkModel[] = [
   {
     id: 1,
     branchname: 'Tây Hồ',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
     status: 'Active',
   },
   {
     id: 2,
-    branchname: 'Hoàng Mai',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Inactive',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Expired',
   },
   {
     id: 3,
-    branchname: 'Hai Bà Trưng',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Valid',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Active',
   },
   {
     id: 4,
-    branchname: 'Hoàn Kiếm',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Expired',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Inactive',
   },
   {
     id: 5,
-    branchname: 'Hoàn Kiếm',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Expired',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Active',
   },
   {
     id: 6,
-    branchname: 'Hoàn Kiếm',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Expired',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Active', 
   },
   {
     id: 7,
-    branchname: 'Hoàn Kiếm',
-    createdAt: '2023-08-17T08:03:19.128Z',
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    targetOwner: 'Hoang Ngoc Anh',
-    status: 'Expired',
+    employee: 'Hoang Ngoc Anh',
+    note:'Giup anh nhé',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    updatedDate: '2023-08-17T08:03:19.128Z',
+    status: 'Active',
   },
 ];
 
@@ -102,7 +128,8 @@ const ELEMENT_DATA: MyWorkModel[] = [
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
   templateUrl: './mywork.component.html',
   styleUrls: ['./mywork.component.scss'],
@@ -120,18 +147,26 @@ export class MyworkComponent implements OnInit {
   displayedColumns: string[] = [
     'id',
     'branchname',
-    'createdAt',
-    'targetOwner',
+    'createdDate',
+    'employee',
     'status',
     'action',
   ];
   dataSource = ELEMENT_DATA;
 
   
-  constructor(private myworkService: MyworkService) {}
+  constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
 
   onRowClick(element: any): void {
     this.myworkService.setMyWorkData(element);
+  }
+  onClick(element: any): void{
+    const dialogRef = this.dialog.open(MyworkDetailPopupComponent, {
+      data: element 
+    });
+    dialogRef.afterClosed().subscribe(result => {
+     
+    });
   }
 
 

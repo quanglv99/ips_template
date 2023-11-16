@@ -44,28 +44,27 @@
             <mat-card-title>Thông tin sinh trắc học</mat-card-title>
             <mat-divider></mat-divider>
             <mat-card-content>
-                <button mat-stroked-button class="right-btn">Cần hỗ trợ</button>
-                <button mat-raised-button color="primary" class="right-btn" [disabled]="!fileChosen">Save</button>
-                <form class="form-input">
+                <form class="form-input" [formGroup]="biometricForm">
+                    <button mat-stroked-button class="right-btn">Cần hỗ trợ</button>
+                    <button mat-raised-button color="primary" class="right-btn" [disabled]="biometricForm.invalid">Lưu</button>
                     <div class="col-6">
                         <div class="bio-row">
                             <p><span>Trạng thái:</span>Chưa đăng ký</p>
                         </div>
                         <div class="bio-row">
-                            <p><span>Ảnh mặt trước CCCD</span><input type="file" name="font" accept="image/png, image/jpeg"
-                                    (change)="onFileSelected($event, 'font')" /></p>
+                            <p><span>Ảnh mặt trước CCCD</span><input type="file" name="font"
+                                    accept="image/png, image/jpeg" formControlName="imgFront" /></p>
                         </div>
                         <div class="bio-row">
-                            <p><span>Ảnh mặt sau CCCD</span><input type="file" name="back" accept="image/png, image/jpeg"
-                                    (change)="onFileSelected($event, 'back')" /></p>
+                            <p><span>Ảnh mặt sau CCCD</span><input type="file" name="back"
+                                    accept="image/png, image/jpeg" formControlName="imgBack" /></p>
                         </div>
                         <div class="bio-row">
                             <p><span>Ảnh chân dung</span><input type="file" name="avatar" accept="image/png, image/jpeg"
-                                    (change)="onFileSelected($event, 'avatar')" /></p>
+                                    formControlName="imgAvt" (change)="onFileSelected($event, 'avatar')" /></p>
                         </div>
                         <div class="bio-row">
-                            <p><span>Khác</span><input type="file" name="others"
-                                    (change)="onFileSelected($event, 'others')" /></p>
+                            <p><span>Khác</span><input type="file" name="others" formControlName="file" /></p>
                         </div>
                     </div>
                 </form>

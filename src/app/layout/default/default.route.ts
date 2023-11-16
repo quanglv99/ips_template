@@ -15,33 +15,31 @@ export default [
           ),
       },
       {
-        path: 'mywork',
+        path: 'my-work',
         loadChildren: () =>
           import('../../pages/mywork/mywork.route')
       },
       {
-        path: 'workforme',
+        path: 'work-for-me',
         loadComponent: () =>
           import('../../pages/workforme/workforme.component').then(
             (c) => c.WorkformeComponent
           ),
       },
       {
-        path: 'myassign',
-        loadComponent: () =>
-          import('../../pages/myassign/myassign.component').then(
-            (c) => c.MyassignComponent
-          ),
+        path: 'my-assign',
+        loadChildren: () =>
+          import('../../pages/myassign/my-assign.route')
       },
       {
-        path: 'acceptassign',
+        path: 'accept-assign',
         loadComponent: () =>
           import('../../pages/acceptassign/acceptassign.component').then(
             (c) => c.AcceptassignComponent
           ),
       },
       {
-        path: 'approveassign',
+        path: 'approve-assign',
         loadComponent: () =>
           import('../../pages/approveassign/approveassign.component').then(
             (c) => c.ApproveassignComponent

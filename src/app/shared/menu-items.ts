@@ -10,31 +10,31 @@ export interface Menu {
 const MENUITEMS = [
   { state: 'dashboard', name: 'Dashboard', type: 'link', icon: 'av_timer' },
   {
-    state: 'mywork',
+    state: 'my-work',
     type: 'link',
     name: 'Phân công của tôi',
     icon: 'crop_7_5',
   },
   {
-    state: 'workforme',
+    state: 'work-for-me',
     name: 'Phân công cho tôi',
     type: 'link',
     icon: 'view_comfy',
   },
   {
-    state: 'myassign',
+    state: 'my-assign',
     name: 'Uỷ quyền của tôi',
     type: 'link',
     icon: 'view_list',
   },
   {
-    state: 'acceptassign',
+    state: 'accept-assign',
     name: 'Uỷ quyền cho tôi',
     type: 'link',
     icon: 'view_headline',
   },
   {
-    state: 'approveassign',
+    state: 'approve-assign',
     name: 'Uỷ quyền phê duyệt',
     type: 'link',
     icon: 'tab',
@@ -54,7 +54,7 @@ const MENUITEMS = [
     icon: 'vignette',
   },
   {
-    state: 'biometricsupport',
+    state: 'biometric-support',
     name: 'Hỗ trợ đăng ký STH',
     type: 'link',
     icon: 'voicemail',
@@ -72,7 +72,7 @@ const MENUITEMS = [
     icon: 'blur_circular',
   },
   {
-    state: 'managerole',
+    state: 'manage-role',
     name: 'Phân quyền',
     type: 'link',
     icon: 'assignment_turned_in',

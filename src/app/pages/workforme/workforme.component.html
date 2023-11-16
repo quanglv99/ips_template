@@ -1,1 +1,59 @@
-<p>workforme works!</p>
+<h2 class="title">Danh sách phân công cho tôi</h2>
+<mat-card class="card-table">
+  <mat-card-content>
+    <div class="header-container">
+      <div class="group">
+        <i class="material-icons">search</i>
+        <input placeholder="Search" type="search" class="input">
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card class="card-table">
+  <mat-card-content>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> Id </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+        <ng-container matColumnDef="branchname">
+          <th mat-header-cell *matHeaderCellDef> Chi Nhánh </th>
+          <td mat-cell *matCellDef="let element">
+            <p>{{ element.branchname }}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="createdDate">
+          <th mat-header-cell *matHeaderCellDef> Ngày tạo </th>
+          <td mat-cell *matCellDef="let element">
+            <p>{{element.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="employee">
+          <th mat-header-cell *matHeaderCellDef> Người phân công </th>
+          <td mat-cell *matCellDef="let element">
+            <p>{{element.employee}}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Trạng thái </th>
+          <td mat-cell *matCellDef="let element">
+            <p>{{element.status}}</p>
+          </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef> Hành động </th>
+          <td mat-cell *matCellDef="let element">
+            <a (click)="onClick(element)" class="pop-up-icon"><i class="material-icons"
+              style="color: #555555;">edit_note</i></a>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator [length]="totalItems" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions"
+        (page)="onPageChange($event)"></mat-paginator>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -11,11 +11,11 @@ import { MatSelectModule } from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { Employee } from 'src/app/shared/employees';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-add-work',
+  selector: 'app-add-my-assign',
   standalone: true,
   imports: [CommonModule,
     MatCardModule,
@@ -31,23 +31,29 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
     FormsModule,
     ReactiveFormsModule
   ],
-  templateUrl: './add-work.component.html',
-  styleUrls: ['./add-work.component.scss']
+  templateUrl: './add-my-assign.component.html',
+  styleUrls: ['./add-my-assign.component.scss']
 })
-export class AddWorkComponent implements OnInit {
+
+export class AddMyAssignComponent implements OnInit {
   registerWorkForm! : FormGroup
 constructor(private formBuilder: FormBuilder,){
 
 }
 
   ngOnInit(): void {
+
     this.registerWorkForm = this.formBuilder.group({
       branch: ['', Validators.required], 
       member: ['', Validators.required],
+      owner: { value: this.owners[0], disabled: true },
       startDate: ['', Validators.required],
       endDate: ['', Validators.required],
       employee: ['', Validators.required],
-      note: ['']
+      note: [''],
+      aprrover: [''],
+      file: ['']
+      
     });
   }
   states: string[] = [
@@ -65,6 +71,13 @@ constructor(private formBuilder: FormBuilder,){
   ]
 
   employees : Employee[] = [
+    {id:1,code:"VIB0001",fullname:"Lo Van Quang",jobcode:"4.1729",position:"GD Chi nhánh",status:"Bình thường"},
+    {id:2,code:"VIB0002",fullname:"Hoang Anh",jobcode:"5.0112",position:"TP Tài vụ",status:"Bình thường"},
+    {id:3,code:"VIB0003",fullname:"Pham Cuong",jobcode:"5.1221",position:"Phó GD Chi nhánh",status:"Bình thường"},
+    {id:4,code:"VIB0004",fullname:"Nguyen Anh",jobcode:"4.0297",position:"Trưởng BQL",status:"Bình thường"},
+  ]
+
+  owners : Employee[] = [
     {id:1,code:"VIB0001",fullname:"Lo Van Quang",jobcode:"4.1729",position:"GD Chi nhánh",status:"Bình thường"},
     {id:2,code:"VIB0002",fullname:"Hoang Anh",jobcode:"5.0112",position:"TP Tài vụ",status:"Bình thường"},
     {id:3,code:"VIB0003",fullname:"Pham Cuong",jobcode:"5.1221",position:"Phó GD Chi nhánh",status:"Bình thường"},

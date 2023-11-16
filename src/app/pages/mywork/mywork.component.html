@@ -2,7 +2,7 @@
 <mat-card class="card-table">
   <mat-card-content>
     <div class="header-container">
-      <button mat-raised-button color="primary" class="right-btn" routerLink="addwork">Thêm mới</button>
+      <button mat-raised-button color="primary" class="right-btn" routerLink="add-work">Thêm mới</button>
       <div class="group">
         <i class="material-icons">search</i>
         <input placeholder="Search" type="search" class="input">
@@ -24,17 +24,17 @@
             <p>{{ element.branchname }}</p>
           </td>
         </ng-container>
-        <ng-container matColumnDef="createdAt">
+        <ng-container matColumnDef="createdDate">
           <th mat-header-cell *matHeaderCellDef> Ngày tạo </th>
           <td mat-cell *matCellDef="let element">
-            <p>{{element.createdAt | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+            <p>{{element.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="targetOwner">
+        <ng-container matColumnDef="employee">
           <th mat-header-cell *matHeaderCellDef> Người nhận </th>
           <td mat-cell *matCellDef="let element">
-            <p>{{element.targetOwner}}</p>
+            <p>{{element.employee}}</p>
           </td>
         </ng-container>
         <ng-container matColumnDef="status">
@@ -46,7 +46,9 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef> Hành động </th>
           <td mat-cell *matCellDef="let element">
-            <a (click)="onRowClick(element)" [routerLink]="['/default/mywork',element.id]"><i class="material-icons"
+            <a (click)="onClick(element)" class="pop-up-icon"><i class="material-icons"
+              style="color: #555555;">edit_note</i></a>
+            <a (click)="onRowClick(element)" [routerLink]="['/default/my-work',element.id]"><i class="material-icons"
                 style="color: #555555;">edit</i></a>
           </td>
         </ng-container>

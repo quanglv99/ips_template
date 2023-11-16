@@ -1,0 +1,43 @@
+
+<div class="modal">
+	<article class="modal-container">
+		<header class="modal-container-header">
+			<h2 class="modal-container-title">
+				Chi tiết phân công cho tôi
+			</h2>
+		</header>
+		<section class="modal-container-body">
+			<div class="inline-item">
+                <p><span>Chi nhánh</span>{{data.branchname}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Thành phần</span>{{data.member}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Hiệu lực từ</span>{{data.startDate | date: 'dd/MM/yyyy HH:mm:ss' }}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Hiệu lực đến</span>{{data.endDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Người phân công</span>{{data.employee}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Ghi chú</span>{{data.note}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Trạng thái</span>{{data.status}}</p>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="inline-item">
+                <p><span>Ngày tạo</span>{{data.createdDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+            </div>
+            <div class="inline-item">
+                <p><span>Người tạo</span>QuangLV</p>
+            </div>
+		</section>
+		<footer class="modal-container-footer">
+			<button mat-raised-button (click)="onClose()" >Thoát</button>
+		</footer>
+	</article>
+</div>
