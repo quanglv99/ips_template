@@ -1,69 +1,65 @@
+::ng-deep {
+	mat-divider {
+	  padding: 10px 0;
+	}
+  }
+  
+.w-300 {
+  width: 300px;
+}
 
+.form-input {
+  padding: 0 15px;
+}
+.inline-item
+{
+    padding: 0 10px;
+}
 .inline-item p span {
-    width: 150px;
-    display: inline-block;
+  width: 120px;
+  display: inline-block;
+}
+
+.flex-item {
+    display: flex;
+    flex-flow: wrap;
   }
 
-::ng-deep
-{
-    mat-divider
-    {
-        padding: 20px 0;
-    }
+.file-upload {
+  margin-top: 1rem;
+  &:hover {
+    cursor: pointer;
+  }
+}
+input::file-selector-button {
+  font-weight: bold;
+  color: #353535;
+  padding: 0.5em;
+  border: none;
+  border-radius: 3px;
 }
 
-
-.modal {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-    max-width: 500px;
-    width: 100%;
+.header {
+  padding: 10px;
 }
 
-.modal-container {
-	max-height: 90vh;
-	overflow: hidden;
-	display: flex;
-	flex-direction: column;
+.btn-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  padding: 5px;
+}
+.ml-50 {
+  margin-left: 50px;
 }
 
-.modal-container-header {
-	padding: 16px 32px;
-	border-bottom: 1px solid #ddd;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+.scrollable-content {
+    max-height: 400px; 
+    overflow-y: auto;
 }
-
-.modal-container-title {
-	display: flex;
-	align-items: center;
-	line-height: 1;
-	font-weight: 700;
-	font-size: 1.125;
+.footer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
-
-h2
-{
-    margin: 0;
-}
-
-.modal-container-body {
-	padding: 24px 32px 51px;
-	overflow-y: auto;
-}
-
-
-.modal-container-footer {
-	padding: 20px 32px;
-	display: flex;
-	align-items: center;
-	justify-content: flex-end;
-	border-top: 1px solid #ddd;
-	gap: 20px;
-	position: relative;
-    border-bottom: 1px solid #ddd;
-}
-
-

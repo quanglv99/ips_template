@@ -11,12 +11,14 @@ import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MyWorkModel } from 'src/app/shared/my-work';
+import { AssignModel } from 'src/app/shared/assign';
 
 @Component({
-  selector: 'app-work-for-me-detail-popup',
+  selector: 'app-approve-assign-detail-popup',
   standalone: true,
-  imports: [CommonModule, MatCardModule,
+  imports: [
+    CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -25,15 +27,18 @@ import { MyWorkModel } from 'src/app/shared/my-work';
     RouterModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule,],
-  templateUrl: './work-for-me-detail-popup.component.html',
-  styleUrls: ['./work-for-me-detail-popup.component.scss']
+    MatNativeDateModule,
+  ],
+  templateUrl: './approve-assign-detail-popup.component.html',
+  styleUrls: ['./approve-assign-detail-popup.component.scss'],
 })
-export class WorkForMeDetailPopupComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MyWorkModel, private dialogRef: MatDialogRef<WorkForMeDetailPopupComponent>) {}
+export class ApproveAssignDetailPopupComponent {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: AssignModel,
+    private dialogRef: MatDialogRef<ApproveAssignDetailPopupComponent>
+  ) {}
 
-  onClose()
-  {
+  onClose() {
     this.dialogRef.close();
   }
 }

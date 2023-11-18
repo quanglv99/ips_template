@@ -32,6 +32,9 @@ th.mat-header-cell {
     @include customBoxShadow();
 
   }
+  .mdc-data-table__content tr:hover {
+    background-color: #cccccc67
+}
   .card-table {
     @include customBoxShadow();
   }
@@ -91,4 +94,11 @@ th.mat-header-cell {
     cursor: pointer;
    }
       
-  
+  .btn-icon
+  {
+    color: #555555;
+    &:hover
+    {
+        cursor: pointer;
+    }
+  }

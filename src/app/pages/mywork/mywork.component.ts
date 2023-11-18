@@ -13,32 +13,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MyworkService } from 'src/app/services/mywork.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MyworkDetailPopupComponent } from 'src/app/popups/mywork-detail-popup/mywork-detail-popup.component';
+import { MyWorkModel } from 'src/app/shared/my-work';
+import { WORK_STATES } from 'src/app/shared/my-work-states';
 
-export interface MyWorkModel {
-  id: number;
-  branchname: string;
-  member: string;
-  startDate: string;
-  endDate: string;
-  employee: string;
-  note:string;
-  createdDate: string;
-  updatedDate: string;
-  status: string;
-}
-
-const ELEMENT_DATA: MyWorkModel[] = [
+export const ELEMENT_DATA: MyWorkModel[] = [
   {
     id: 1,
     branchname: 'Tây Hồ',
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[0],
   },
   {
     id: 2,
@@ -46,11 +39,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Expired',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[1],
   },
   {
     id: 3,
@@ -58,11 +55,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[2],
   },
   {
     id: 4,
@@ -70,11 +71,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Inactive',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[3],
   },
   {
     id: 5,
@@ -82,11 +87,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[4],
   },
   {
     id: 6,
@@ -94,11 +103,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active', 
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[5], 
   },
   {
     id: 7,
@@ -106,11 +119,15 @@ const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
+    owner: 'Lo Van Quang',
     employee: 'Hoang Ngoc Anh',
     note:'Giup anh nhé',
+    approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[3],
   },
 ];
 

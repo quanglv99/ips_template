@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -11,12 +11,14 @@ import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { MyWorkModel } from 'src/app/shared/my-work';
+import { AssignModel } from 'src/app/shared/assign';
 
 @Component({
-  selector: 'app-work-for-me-detail-popup',
+  selector: 'app-accept-assign-detail-popup',
   standalone: true,
-  imports: [CommonModule, MatCardModule,
+  imports: [
+    CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -25,15 +27,21 @@ import { MyWorkModel } from 'src/app/shared/my-work';
     RouterModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule,],
-  templateUrl: './work-for-me-detail-popup.component.html',
-  styleUrls: ['./work-for-me-detail-popup.component.scss']
+    MatNativeDateModule,
+  ],
+  templateUrl: './accept-assign-detail-popup.component.html',
+  styleUrls: ['./accept-assign-detail-popup.component.scss'],
 })
-export class WorkForMeDetailPopupComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MyWorkModel, private dialogRef: MatDialogRef<WorkForMeDetailPopupComponent>) {}
+export class AcceptAssignDetailPopupComponent implements OnInit {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: AssignModel,
+    private dialogRef: MatDialogRef<AcceptAssignDetailPopupComponent>
+  ) {}
+  ngOnInit(): void {
+    
+  }
 
-  onClose()
-  {
+  onClose() {
     this.dialogRef.close();
   }
 }

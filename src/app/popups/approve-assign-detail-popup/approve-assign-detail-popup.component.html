@@ -1,6 +1,6 @@
 <mat-card>
     <div class="header">
-        <mat-card-title>Chi tiết phân công cho tôi</mat-card-title>
+        <mat-card-title>Phê duyệt Uỷ quyền</mat-card-title>
         <a class="btn-close" (click)="onClose()">
             <i class="material-icons">close</i>
         </a>
@@ -12,6 +12,9 @@
                 <p><span>Chi nhánh</span>{{data.branchname}}</p>
             </div>
             <div class="inline-item">
+                <p><span>Người Uỷ quyền</span>{{data.owner}}</p>
+            </div>
+            <div class="inline-item">
                 <p><span>Thành phần</span>{{data.member}}</p>
             </div>
             <div class="inline-item">
@@ -21,7 +24,7 @@
                 <p><span>Hiệu lực đến</span>{{data.endDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
             </div>
             <div class="inline-item">
-                <p><span>Người phân công</span>{{data.employee}}</p>
+                <p><span>Người nhận</span>{{data.employee}}</p>
             </div>
             <div class="inline-item">
                 <p><span>Ghi chú</span>{{data.note}}</p>
@@ -41,7 +44,8 @@
     <mat-divider></mat-divider>
     <mat-card-footer>
         <div class="footer">
-            <button mat-raised-button (click)="onClose()">Thoát</button>
+            <button mat-raised-button color="warn" *ngIf="data.status.id === 1">Phê duyệt</button>
+            <button mat-raised-button class="ml-50" *ngIf="data.status.id === 1">Từ chối</button>
         </div>
     </mat-card-footer>
 </mat-card>
