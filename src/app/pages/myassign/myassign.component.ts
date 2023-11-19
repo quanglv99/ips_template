@@ -14,6 +14,7 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MyAssignDetailPopupComponent } from 'src/app/popups/my-assign-detail-popup/my-assign-detail-popup.component';
 import { AssignModel } from 'src/app/shared/assign';
 import { STATES } from 'src/app/shared/assign-states';
+import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 
 
 
@@ -212,5 +213,21 @@ export class MyassignComponent implements OnInit {
     this.pageNumber = event.pageIndex + 1;
     this.pageSize = event.pageSize;
     this.loadMyWorkPage();
+  }
+
+  deleteRow(element:any): void
+  {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '300px',
+      data: { message: 'Are you sure to detele this record?',
+              showYesNo:true }
+    });
+    
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result)
+      {
+        
+      }
+    })
   }
 }
