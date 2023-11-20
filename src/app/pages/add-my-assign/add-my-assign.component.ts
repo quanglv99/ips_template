@@ -12,6 +12,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { Employee } from 'src/app/shared/employees';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { EMPLOYEES_LIST } from 'src/app/shared/employees-value';
 
 
 @Component({
@@ -56,7 +57,7 @@ constructor(private formBuilder: FormBuilder,){
       
     });
   }
-  states: string[] = [
+  branch: string[] = [
     'Tây Hồ',
     'Hoàn Kiếm',
     'Hai Bà Trưng',
@@ -70,17 +71,7 @@ constructor(private formBuilder: FormBuilder,){
     'Thành phần 3'
   ]
 
-  employees : Employee[] = [
-    {id:1,code:"VIB0001",fullname:"Lo Van Quang",jobcode:"4.1729",position:"GD Chi nhánh",status:"Bình thường"},
-    {id:2,code:"VIB0002",fullname:"Hoang Anh",jobcode:"5.0112",position:"TP Tài vụ",status:"Bình thường"},
-    {id:3,code:"VIB0003",fullname:"Pham Cuong",jobcode:"5.1221",position:"Phó GD Chi nhánh",status:"Bình thường"},
-    {id:4,code:"VIB0004",fullname:"Nguyen Anh",jobcode:"4.0297",position:"Trưởng BQL",status:"Bình thường"},
-  ]
+  employees = EMPLOYEES_LIST
 
-  owners : Employee[] = [
-    {id:1,code:"VIB0001",fullname:"Lo Van Quang",jobcode:"4.1729",position:"GD Chi nhánh",status:"Bình thường"},
-    {id:2,code:"VIB0002",fullname:"Hoang Anh",jobcode:"5.0112",position:"TP Tài vụ",status:"Bình thường"},
-    {id:3,code:"VIB0003",fullname:"Pham Cuong",jobcode:"5.1221",position:"Phó GD Chi nhánh",status:"Bình thường"},
-    {id:4,code:"VIB0004",fullname:"Nguyen Anh",jobcode:"4.0297",position:"Trưởng BQL",status:"Bình thường"},
-  ]
+  owners = EMPLOYEES_LIST
 }

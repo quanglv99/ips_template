@@ -17,6 +17,16 @@
                             </p>
                     </div>
                     <div class="inline-item">
+                        <p><span>Người phân công</span>
+                            <mat-form-field appearance="outline" class="w-300">
+                                <mat-label>Chọn nhân viên</mat-label>
+                                <mat-select formControlName="owner">
+                                    <mat-option *ngFor="let employee of employees" [value]="employee">{{employee.code}}-{{employee.fullname}}-{{employee.position}}</mat-option>
+                                  </mat-select>
+                            </mat-form-field>
+                        </p>
+                    </div>
+                    <div class="inline-item">
                         <p><span>Thành phần</span>
                             <mat-form-field appearance="outline" class="w-300">
                                 <mat-label>Chọn thành phần</mat-label>
@@ -83,18 +93,18 @@
             <mat-card-content class="row">
                 <div class="col-6">
                     <div class="inline-item">
-                        <p><span>Ngày tạo</span>:14/11/2023</p>
+                        <p><span>Ngày tạo</span>14/11/2023</p>
                     </div>
                     <div class="inline-item">
-                        <p><span>Người tạo</span>:QuangLV</p>
+                        <p><span>Người tạo</span>QuangLV</p>
                     </div>
                 </div>
                 <div class="col-6">
                     <div class="inline-item">
-                        <p><span>Ngày cập nhật</span>:14/11/2023</p>
+                        <p><span>Ngày cập nhật</span>14/11/2023</p>
                     </div>
                     <div class="inline-item">
-                        <p><span>Người cập nhật</span>:QuangLV</p>
+                        <p><span>Người cập nhật</span>QuangLV</p>
                     </div>
                 </div>
             </mat-card-content>

@@ -1,11 +1,13 @@
+import { Employee } from "./employees";
+
 export interface AssignModel {
     id: number;
     branchname: string;
     member: string;
     startDate: string;
     endDate: string;
-    owner: string;
-    employee: string;
+    owner: Employee;
+    employee: Employee;
     note:string;
     approver: string;
     file: string;

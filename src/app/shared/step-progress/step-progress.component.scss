@@ -92,3 +92,9 @@
 .current-item .progress-count{
     color: #21d4fd;
 }
+
+@media (max-width: 1025px) {
+    .step-wizard-item {
+      min-width: 50px; 
+    }
+  }

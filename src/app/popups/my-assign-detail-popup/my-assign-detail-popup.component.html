@@ -52,7 +52,9 @@
             <div class="inline-item">
                 <p><span>Người ủy quyền</span>
                     <mat-form-field appearance="outline" class="w-300">
-                        <input matInput type="text" formControlName="owner">
+                        <mat-select formControlName="owner">
+                            <mat-option *ngFor="let owner of owners" [value]="owner">{{owner.code}}-{{owner.fullname}}</mat-option>
+                          </mat-select>
                     </mat-form-field>
                 </p>
             </div>
@@ -66,7 +68,9 @@
             <div class="inline-item">
                 <p><span>Người nhận</span>
                     <mat-form-field appearance="outline" class="w-300">
-                        <input matInput type="text" formControlName="employee">
+                        <mat-select formControlName="employee">
+                            <mat-option *ngFor="let employee of employees" [value]="employee">{{employee.code}}-{{employee.fullname}}</mat-option>
+                          </mat-select>
                     </mat-form-field>
                 </p>
             </div>
@@ -87,13 +91,34 @@
             <div class="inline-item">
                 <p><span>Khác</span><input type="file" name="others" formControlName="file" class="file-upload" /></p>
             </div>
+            <mat-divider></mat-divider>
+            <div class="card-others">
+                <div class="other-content">
+                    <div class="w-50">
+                        <div class="inline-item">
+                            <p><span>Ngày tạo</span>{{data.createdDate  | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        </div>
+                        <div class="inline-item">
+                            <p><span>Người tạo</span>{{data.createdUser}}</p>
+                        </div>
+                    </div>
+                    <div class="w-50">
+                        <div class="inline-item">
+                            <p><span>Ngày cập nhật</span>{{data.updatedDate  | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+                        </div>
+                        <div class="inline-item">
+                            <p><span>Người cập nhật</span>{{data.updatedUser}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
     </mat-card-content>
     <mat-divider></mat-divider>
     <mat-card-footer>
         <div class="footer">
-            <button mat-raised-button color="warn">Hủy Ủy quyền</button>
-            <button mat-raised-button color="primary" class="ml-50" *ngIf="data.status.id === 1 " [disabled]="!isFormDirty">Cập nhật</button>
+            <button mat-raised-button color="warn" *ngIf="data.status.id !== 7 ">Hủy Ủy quyền</button>
+            <button mat-raised-button color="primary" class="ml-50" *ngIf="data.status.id === 1 || data.status.id === 2 " [disabled]="!isFormDirty">Cập nhật</button>
         </div>
     </mat-card-footer>
 </mat-card>

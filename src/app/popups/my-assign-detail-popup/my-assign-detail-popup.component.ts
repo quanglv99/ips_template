@@ -10,9 +10,10 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { AssignModel } from 'src/app/shared/assign';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MY_DATE_FORMATS } from '../../shared/custom-date'
 import {
   FormBuilder,
   FormGroup,
@@ -21,6 +22,7 @@ import {
 } from '@angular/forms';
 import { StepProgressComponent } from "../../shared/step-progress/step-progress.component";
 import { STATES } from 'src/app/shared/assign-states';
+import { EMPLOYEES_LIST } from 'src/app/shared/employees-value';
 
 @Component({
     selector: 'app-my-assign-detail-popup',
@@ -43,13 +45,18 @@ import { STATES } from 'src/app/shared/assign-states';
         ReactiveFormsModule,
         MatStepperModule,
         StepProgressComponent
-    ]
+    ],
+    providers: [
+      { provide: DateAdapter, useClass: NativeDateAdapter },
+      { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    ],
 })
 export class MyAssignDetailPopupComponent implements OnInit {
 
   state = STATES
   currentStep!:number
-
+  employees = EMPLOYEES_LIST
+  owners = EMPLOYEES_LIST
   updateAssignForm!: FormGroup;
   isFormDirty: boolean = false;
   isDisable: boolean = false;
@@ -60,7 +67,7 @@ export class MyAssignDetailPopupComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.currentStep = this.data.status.id
-    if (this.data.status.id !== 1) {
+    if (this.data.status.id !== 1 && this.data.status.id !== 2 ) {
       this.isDisable = true;
     }
     
