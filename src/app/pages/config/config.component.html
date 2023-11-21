@@ -24,16 +24,16 @@
                         <p>{{ element.nameConfig }}</p>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="ingredientConfig">
+                <ng-container matColumnDef="members">
                     <th mat-header-cell *matHeaderCellDef> Thành phần </th>
                     <td mat-cell *matCellDef="let element">
-                        <p>{{element.ingredientConfig }}</p>
+                        <p *ngFor="let member of element.members">{{ member.name }} </p>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef> Hành động </th>
                     <td mat-cell *matCellDef="let element">
-                        <a (click)="onRowClick(element)" [routerLink]="['/default/config',element.id]"><i class="material-icons"
+                        <a (click)="onRowClick(element)" [routerLink]="['/default/setting/config',element.id]"><i class="material-icons"
                 style="color: #555555;">edit</i></a>
                     </td>
                 </ng-container>

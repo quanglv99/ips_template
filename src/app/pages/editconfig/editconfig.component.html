@@ -15,8 +15,8 @@
                     <div class="inline-item">
                         <p><span>Thành phần</span>
                             <mat-form-field appearance="outline" class="w-300">
-                                <mat-select formControlName="ingredientConfig">
-                                    <mat-option *ngFor="let member of memberList" [value]="member">{{ member }}</mat-option>
+                                <mat-select formControlName="members" multiple >
+                                    <mat-option *ngFor="let member of memberList" [value]="member.name">{{ member.name }}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </p>

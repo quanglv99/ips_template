@@ -39,44 +39,13 @@ const MENUITEMS = [
     type: 'link',
     icon: 'tab',
   },
-  { state: 'config', name: 'Cấu hình thành phần', type: 'link', icon: 'web' },
-  {
-    state: 'members',
-    name: 'Thành phần',
-    type: 'link',
-    icon: 'vertical_align_center',
-  },
-  {
-    state: 'jobcode',
-    name: 'Jobcode',
-    type: 'link',
-
-    icon: 'vignette',
-  },
   {
     state: 'biometric-support',
     name: 'Hỗ trợ đăng ký STH',
     type: 'link',
     icon: 'voicemail',
   },
-  {
-    state: 'parameters',
-    name: 'Tham số hệ thống',
-    type: 'link',
-    icon: 'border_horizontal',
-  },
-  {
-    state: 'alert',
-    name: 'Quy tắc cảnh báo',
-    type: 'link',
-    icon: 'blur_circular',
-  },
-  {
-    state: 'manage-role',
-    name: 'Phân quyền',
-    type: 'link',
-    icon: 'assignment_turned_in',
-  },
+  
 ];
 
 @Injectable()

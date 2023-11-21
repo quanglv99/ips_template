@@ -10,7 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ParameterconfigurationService } from 'src/app/services/parameterconfiguration.service';
+import { ConfigService } from 'src/app/services/config.service';
 import { MemberConfigModel } from 'src/app/shared/memberConfig';
 import { JobcodeModel } from 'src/app/shared/jobcode';
 
@@ -80,10 +80,10 @@ export class JobcodeComponent implements OnInit{
   dataSource = ELEMENT_DATA;
 
 
-  constructor(private parameterconfigurationService: ParameterconfigurationService) {}
+  constructor(private configService: ConfigService) {}
 
   onRowClick(element: any): void {
-    this.parameterconfigurationService.setParameterConfigurationData(element);
+    this.configService.setConfigData(element);
   }
 
 

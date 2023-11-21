@@ -13,108 +13,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MyworkService } from 'src/app/services/mywork.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
-import { MyworkDetailPopupComponent } from 'src/app/popups/mywork-detail-popup/mywork-detail-popup.component';
 import { WorkForMeDetailPopupComponent } from 'src/app/popups/work-for-me-detail-popup/work-for-me-detail-popup.component';
-
-export interface WorkForMeModel {
-  id: number;
-  branchname: string;
-  member: string;
-  startDate: string;
-  endDate: string;
-  employee: string;
-  note:string;
-  createdDate: string;
-  updatedDate: string;
-  status: string;
-}
-
-const ELEMENT_DATA: WorkForMeModel[] = [
-  {
-    id: 1,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
-  },
-  {
-    id: 2,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Expired',
-  },
-  {
-    id: 3,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
-  },
-  {
-    id: 4,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Inactive',
-  },
-  {
-    id: 5,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
-  },
-  {
-    id: 6,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active', 
-  },
-  {
-    id: 7,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    updatedDate: '2023-08-17T08:03:19.128Z',
-    status: 'Active',
-  },
-];
+import { WORK_DATA } from '../mywork/mywork.component';
 
 @Component({
   selector: 'app-workforme',
@@ -151,7 +51,7 @@ export class WorkformeComponent implements OnInit {
     'status',
     'action',
   ];
-  dataSource = ELEMENT_DATA;
+  dataSource = WORK_DATA;
 
   
   constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
@@ -176,9 +76,9 @@ export class WorkformeComponent implements OnInit {
   loadMyWorkPage(): void {
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.dataSource = ELEMENT_DATA.slice(startIndex, endIndex);
+    this.dataSource = WORK_DATA.slice(startIndex, endIndex);
     
-    this.totalItems = ELEMENT_DATA.length;
+    this.totalItems = WORK_DATA.length;
 
     if(this.paginator)
     {

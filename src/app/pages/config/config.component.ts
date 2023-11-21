@@ -11,36 +11,30 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ParameterconfigurationService } from 'src/app/services/parameterconfiguration.service';
 import { MemberConfigModel } from 'src/app/shared/memberConfig';
+import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { ConfigService } from 'src/app/services/config.service';
 
 
 const ELEMENT_DATA: MemberConfigModel[] = [
   {
     id: 1,
     nameConfig: 'Cấu hình 1',
-    ingredientConfig: 'Thành phần 1, thành phần 2',
+    members: [MEMBER_LIST[0],MEMBER_LIST[1]],
     noteConfig: 'Active',
   },
   {
     id: 2,
     nameConfig: 'Cấu hình 2',
-    ingredientConfig: 'Thành phần 2',
+    members: [MEMBER_LIST[0],MEMBER_LIST[1],MEMBER_LIST[2]],
     noteConfig: 'Inactive',
   },
   {
     id: 3,
     nameConfig: 'Cấu hình 3',
-    ingredientConfig: 'Thành phần 3',
+    members: [MEMBER_LIST[1],MEMBER_LIST[2]],
     noteConfig: 'Valid',
   },
-  {
-    id: 4,
-    nameConfig: 'Cấu hình 4',
-    ingredientConfig: 'Thành phần 1,Thành phần 2,Thành phần 3',
-    noteConfig: 'Expired',
-  },
-
 ];
 
 @Component({
@@ -75,16 +69,16 @@ export class ConfigComponent  implements OnInit {
   displayedColumns: string[] = [
     'id',
     'nameConfig',
-    'ingredientConfig',
+    'members',
     'action',
   ];
   dataSource = ELEMENT_DATA;
 
 
-  constructor(private parameterconfigurationService: ParameterconfigurationService) {}
+  constructor(private configService: ConfigService) {}
 
   onRowClick(element: any): void {
-    this.parameterconfigurationService.setParameterConfigurationData(element);
+    this.configService.setConfigData(element);
   }
 
 
@@ -93,6 +87,7 @@ export class ConfigComponent  implements OnInit {
   }
 
   loadMyWorkPage(): void {
+
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
     this.dataSource = ELEMENT_DATA.slice(startIndex, endIndex);

@@ -46,11 +46,6 @@ export default [
           ),
       },
       {
-        path: 'config',
-        loadChildren: () =>
-          import('../../pages/config/config.route')
-      },
-      {
         path: 'jobcode',
         loadChildren: () =>
           import('../../pages/jobcode/jobcode.route')
@@ -58,10 +53,8 @@ export default [
 
       {
         path: 'setting',
-        loadComponent: () =>
-          import('../../pages/setting/setting.component').then(
-            (c) => c.SettingComponent
-          ),
+        loadChildren: () =>
+          import('../../pages/setting/setting.route')
       },
       {
         path: 'profile',

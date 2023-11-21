@@ -1,7 +1,8 @@
+import { MemberModel } from "./members";
+
 export interface MemberConfigModel {
   id: number;
   nameConfig: string;
-  ingredientConfig: string;
+  members: MemberModel[];
   noteConfig: string;
-
 }

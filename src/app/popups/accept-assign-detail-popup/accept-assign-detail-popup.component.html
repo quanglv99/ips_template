@@ -13,7 +13,7 @@
                 <p><span>Chi nhánh</span>{{data.branchname}}</p>
             </div>
             <div class="inline-item">
-                <p><span>Người Uỷ quyền</span>{{data.owner}}</p>
+                <p><span>Người Uỷ quyền</span>{{data.owner.code}}- {{data.owner.fullname}}</p>
             </div>
             <div class="inline-item">
                 <p><span>Thành phần</span>{{data.member}}</p>
@@ -25,13 +25,13 @@
                 <p><span>Hiệu lực đến</span>{{data.endDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
             </div>
             <div class="inline-item">
-                <p><span>Người nhận</span>{{data.employee}}</p>
+                <p><span>Người nhận</span>{{data.employee.code}}-{{data.employee.fullname}}</p>
             </div>
             <div class="inline-item">
                 <p><span>Ghi chú</span>{{data.note}}</p>
             </div>
             <div class="inline-item">
-                <p><span>Trạng thái</span>{{data.status}}</p>
+                <p><span>Trạng thái</span>{{data.status.name}}</p>
             </div>
             <mat-divider></mat-divider>
             <div class="inline-item">
@@ -44,7 +44,7 @@
     </mat-card-content>
     <mat-divider></mat-divider>
     <mat-card-footer>
-            <div class="footer" *ngIf="data.status.id === 1">
+            <div class="footer" *ngIf="data.status.id === 2">
                 <button mat-raised-button  color="warn" >Đồng ý</button>
                 <button mat-raised-button class="ml-50" >Từ chối</button>
             </div>

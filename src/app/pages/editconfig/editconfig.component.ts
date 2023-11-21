@@ -4,18 +4,26 @@ import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, FormsModule, ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
+import {
+  FormControl,
+  FormsModule,
+  ReactiveFormsModule,
+  FormGroup,
+  FormBuilder,
+} from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfigComponent } from '../config/config.component';
-import { ParameterconfigurationService } from 'src/app/services/parameterconfiguration.service';
 import { ActivatedRoute } from '@angular/router';
+import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { ConfigService } from 'src/app/services/config.service';
 @Component({
   selector: 'app-editconfig',
   standalone: true,
-  imports: [CommonModule,
+  imports: [
+    CommonModule,
     MatCheckboxModule,
     MatFormFieldModule,
     MatFormFieldModule,
@@ -25,52 +33,53 @@ import { ActivatedRoute } from '@angular/router';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatDividerModule],
+    MatDividerModule,
+  ],
   providers: [ConfigComponent],
   templateUrl: './editconfig.component.html',
-  styleUrls: ['./editconfig.component.scss']
+  styleUrls: ['./editconfig.component.scss'],
 })
-export class EditconfigComponent implements OnInit,OnDestroy {
+export class EditconfigComponent implements OnInit, OnDestroy {
   data: any;
-  subscription!: Subscription
+  subscription!: Subscription;
   members = new FormControl('');
-  memberList: string[] = ['Thành phần 1', 'Thành phần 2', 'Thành phần 3'];
-  editConfigForm!: FormGroup
+  memberList = MEMBER_LIST;
+  editConfigForm!: FormGroup;
   isDisable: boolean = false;
   isFormDirty: boolean = false;
-  constructor(private formBuilder: FormBuilder,private config: ConfigComponent , private dataService: ParameterconfigurationService, private route: ActivatedRoute ) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private config: ConfigComponent,
+    private dataService: ConfigService,
+    private route: ActivatedRoute
+  ) {}
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 
   ngOnInit(): void {
-    this.subscription = this.dataService.getParameterConfigurationData().subscribe(
-      data =>
-      {
-        if(data)
-        {
-          this.data = data
-        }else
-        {
-          const id = Number(this.route.snapshot.paramMap.get('id'));
-          if(id)
-          {
-            this.getConfigById(id);
-          }
+    this.subscription = this.dataService.getConfigData().subscribe((data) => {
+      if (data) {
+        this.data = data;
+      } else {
+        const id = Number(this.route.snapshot.paramMap.get('id'));
+        if (id) {
+          this.getConfigById(id);
         }
-        this.createForm()
       }
-    );
-
+      this.createForm();
+    });
 
     this.editConfigForm.valueChanges.subscribe(() => {
       this.isFormDirty = this.editConfigForm.dirty;
     });
-    console.log("hihi", this.data)
     this.editConfigForm = this.formBuilder.group({
-      inputConfig: [{ value: this.data.nameConfig, disabled: this.isDisable}],
-      ingredientConfig: [{ value: this.data.ingredientConfig, disabled: this.isDisable}],
-      noteConfig: [{ value: this.data.noteConfig, disabled: this.isDisable}],
+      inputConfig: [{ value: this.data.nameConfig, disabled: this.isDisable }],
+      members: [
+        this.data.members.map((member: { name: any }) => member.name),
+        { value: this.data.members, disabled: this.isDisable },
+      ],
+      noteConfig: [{ value: this.data.noteConfig, disabled: this.isDisable }],
     });
 
     this.editConfigForm.valueChanges.subscribe(() => {
@@ -78,18 +87,15 @@ export class EditconfigComponent implements OnInit,OnDestroy {
     });
   }
 
-  getConfigById(id:any):void
-  {
-    this.data = this.config.dataSource.find(r => r.id)
+  getConfigById(id: any): void {
+    this.data = this.config.dataSource.find((r) => r.id);
   }
 
-  createForm():void
-  {
+  createForm(): void {
     this.editConfigForm = this.formBuilder.group({
-      inputConfig: { value: this.data?.nameConfig},
-      ingredientConfig: { value: this.data?.ingredientConfig},
-      noteConfig: { value: this.data?.noteConfig}
+      inputConfig: { value: this.data?.nameConfig },
+      ingredientConfig: { value: this.data?.ingredientConfig },
+      noteConfig: { value: this.data?.noteConfig },
     });
-    console.log("woww", this.data?.nameConfig)
   }
 }

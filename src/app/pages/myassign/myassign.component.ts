@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -176,7 +176,7 @@ export class MyassignComponent implements OnInit {
     'status',
     'action',
   ];
-  dataSource = ELEMENT_DATA;
+  dataSource: any;
 
 
   constructor(private dialog: MatDialog) { }
@@ -198,7 +198,9 @@ export class MyassignComponent implements OnInit {
   loadMyWorkPage(): void {
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.dataSource = ELEMENT_DATA.slice(startIndex, endIndex);
+    const slicedData = ELEMENT_DATA.slice(startIndex, endIndex);
+  
+    this.dataSource = new MatTableDataSource(slicedData);
 
     this.totalItems = ELEMENT_DATA.length;
 

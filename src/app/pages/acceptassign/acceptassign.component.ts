@@ -6,7 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -53,7 +53,7 @@ export class AcceptassignComponent implements OnInit {
     'status',
     'action',
   ];
-  dataSource = ELEMENT_DATA;
+  dataSource:any;
 
   
   constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
@@ -78,12 +78,15 @@ export class AcceptassignComponent implements OnInit {
   loadMyWorkPage(): void {
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.dataSource = ELEMENT_DATA.slice(startIndex, endIndex);
     
-    this.totalItems = ELEMENT_DATA.length;
-
-    if(this.paginator)
-    {
+    // Ensure endIndex does not exceed the length of the array
+    const slicedData = ELEMENT_DATA.filter( r => r.status.id >= 2).slice(startIndex, endIndex);
+  
+    this.dataSource = new MatTableDataSource(slicedData);
+    
+    this.totalItems = ELEMENT_DATA.filter( r => r.status.id >= 2).length;
+  
+    if (this.paginator) {
       this.paginator.length = this.totalItems;
       this.paginator.pageIndex = 0;
     }
