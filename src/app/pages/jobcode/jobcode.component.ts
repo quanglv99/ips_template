@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -13,38 +12,38 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ParameterconfigurationService } from 'src/app/services/parameterconfiguration.service';
 import { MemberConfigModel } from 'src/app/shared/memberConfig';
+import { JobcodeModel } from 'src/app/shared/jobcode';
 
-
-const ELEMENT_DATA: MemberConfigModel[] = [
+const ELEMENT_DATA: JobcodeModel[] = [
   {
     id: 1,
-    nameConfig: 'Cấu hình 1',
-    ingredientConfig: 'Thành phần 1, thành phần 2',
-    noteConfig: 'Active',
+    nameJobcode: 'Jobcode 1',
+    descriptionJobcode: 'Giám đốc phòng kinh doanh',
+    action: 'Active',
   },
   {
     id: 2,
-    nameConfig: 'Cấu hình 2',
-    ingredientConfig: 'Thành phần 2',
-    noteConfig: 'Inactive',
+    nameJobcode: 'Jobcode 2',
+    descriptionJobcode: 'Trưởng phòng kinh doanh',
+    action: 'Inactive',
   },
   {
     id: 3,
-    nameConfig: 'Cấu hình 3',
-    ingredientConfig: 'Thành phần 3',
-    noteConfig: 'Valid',
+    nameJobcode: 'Jobcode 3',
+    descriptionJobcode: 'Giám đốc chi nhánh',
+    action: 'Valid',
   },
   {
     id: 4,
-    nameConfig: 'Cấu hình 4',
-    ingredientConfig: 'Thành phần 1,Thành phần 2,Thành phần 3',
-    noteConfig: 'Expired',
+    nameJobcode: 'Jobcode 4',
+    descriptionJobcode: 'Phó giám đốc kinh doanh',
+    action: 'Expired',
   },
 
 ];
 
 @Component({
-  selector: 'app-config',
+  selector: 'app-jobcode',
   standalone: true,
   imports: [
     CommonModule,
@@ -59,10 +58,10 @@ const ELEMENT_DATA: MemberConfigModel[] = [
     MatIconModule,
     MatInputModule
   ],
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss'],
+  templateUrl: './jobcode.component.html',
+  styleUrls: ['./jobcode.component.scss']
 })
-export class ConfigComponent  implements OnInit {
+export class JobcodeComponent implements OnInit{
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator | undefined;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = this.pageSizeOptions[0];
@@ -74,8 +73,8 @@ export class ConfigComponent  implements OnInit {
   }
   displayedColumns: string[] = [
     'id',
-    'nameConfig',
-    'ingredientConfig',
+    'nameJobcode',
+    'descriptionJobcode',
     'action',
   ];
   dataSource = ELEMENT_DATA;

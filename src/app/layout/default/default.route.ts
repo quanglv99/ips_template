@@ -47,11 +47,15 @@ export default [
       },
       {
         path: 'config',
-        loadComponent: () =>
-          import('../../pages/config/config.component').then(
-            (c) => c.ConfigComponent
-          ),
+        loadChildren: () =>
+          import('../../pages/config/config.route')
       },
+      {
+        path: 'jobcode',
+        loadChildren: () =>
+          import('../../pages/jobcode/jobcode.route')
+      },
+
       {
         path: 'setting',
         loadComponent: () =>
