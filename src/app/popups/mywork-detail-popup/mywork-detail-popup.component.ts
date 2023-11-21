@@ -10,11 +10,13 @@ import { MatInputModule } from '@angular/material/input';
 import { RouterModule } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+import { DateAdapter, MAT_DATE_FORMATS, MatNativeDateModule, NativeDateAdapter } from '@angular/material/core';
 import { StepProgressComponent } from '../../shared/step-progress/step-progress.component';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { WORK_STATES } from 'src/app/shared/my-work-states';
 import { MyWorkModel } from 'src/app/shared/my-work';
+import { MY_DATE_FORMATS } from 'src/app/shared/custom-date';
+import { EMPLOYEES_LIST } from 'src/app/shared/employees-value';
 @Component({
   selector: 'app-mywork-detail-popup',
   standalone: true,
@@ -35,6 +37,10 @@ import { MyWorkModel } from 'src/app/shared/my-work';
     StepProgressComponent,
     ReactiveFormsModule,
   ],
+  providers: [
+    { provide: DateAdapter, useClass: NativeDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+  ],
 })
 export class MyworkDetailPopupComponent implements OnInit {
   state = WORK_STATES;
@@ -43,6 +49,8 @@ export class MyworkDetailPopupComponent implements OnInit {
   updateWorkForm!: FormGroup;
   isFormDirty: boolean = false;
   isDisable: boolean = false;
+  owners = EMPLOYEES_LIST
+  employees = EMPLOYEES_LIST
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: MyWorkModel,
     private dialogRef: MatDialogRef<MyworkDetailPopupComponent>,
@@ -50,7 +58,7 @@ export class MyworkDetailPopupComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.currentStep = this.data.status.id;
-    if (this.data.status.id !== 1) {
+    if (this.data.status.id !== 1 && this.data.status.id !== 2) {
       this.isDisable = true;
     }
 
@@ -74,4 +82,19 @@ export class MyworkDetailPopupComponent implements OnInit {
   onClose() {
     this.dialogRef.close();
   }
+
+  branch: string[] = [
+    'Tây Hồ',
+    'Hoàn Kiếm',
+    'Hai Bà Trưng',
+    'Hoàng Mai',
+    'Cầy Giấy',
+  ]
+
+  members: string[] = [
+    'Thành phần 1',
+    'Thành phần 2',
+    'Thành phần 3'
+  ]
+
 }

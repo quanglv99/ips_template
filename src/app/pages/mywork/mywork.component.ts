@@ -15,32 +15,17 @@ import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { MyworkDetailPopupComponent } from 'src/app/popups/mywork-detail-popup/mywork-detail-popup.component';
 import { MyWorkModel } from 'src/app/shared/my-work';
 import { WORK_STATES } from 'src/app/shared/my-work-states';
+import { EMPLOYEES_LIST } from 'src/app/shared/employees-value';
 
-export const ELEMENT_DATA: MyWorkModel[] = [
+export const WORK_DATA: MyWorkModel[] = [
   {
     id: 1,
     branchname: 'Tây Hồ',
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
-    note:'Giup anh nhé',
-    approver: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: WORK_STATES[0],
-  },
-  {
-    id: 2,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -50,13 +35,13 @@ export const ELEMENT_DATA: MyWorkModel[] = [
     status: WORK_STATES[1],
   },
   {
-    id: 3,
+    id: 2,
     branchname: 'Tây Hồ',
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -66,13 +51,29 @@ export const ELEMENT_DATA: MyWorkModel[] = [
     status: WORK_STATES[2],
   },
   {
+    id: 3,
+    branchname: 'Tây Hồ',
+    member: 'Thành phần 1',
+    startDate: '2023-08-17T18:17:39.691Z',
+    endDate: '2023-08-17T18:17:39.691Z',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
+    note:'Giup anh nhé',
+    approver: '',
+    createdDate: '2023-08-17T18:17:39.691Z',
+    createdUser: "Admin",
+    updatedDate: "2023-08-17T18:17:39.691Z",
+    updatedUser: "Admin",
+    status: WORK_STATES[3],
+  },
+  {
     id: 4,
     branchname: 'Tây Hồ',
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -87,8 +88,8 @@ export const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -103,8 +104,8 @@ export const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -119,8 +120,8 @@ export const ELEMENT_DATA: MyWorkModel[] = [
     member: 'Thành phần 1',
     startDate: '2023-08-17T18:17:39.691Z',
     endDate: '2023-08-17T18:17:39.691Z',
-    owner: 'Lo Van Quang',
-    employee: 'Hoang Ngoc Anh',
+    owner: EMPLOYEES_LIST[1],
+    employee: EMPLOYEES_LIST[2],
     note:'Giup anh nhé',
     approver: '',
     createdDate: '2023-08-17T18:17:39.691Z',
@@ -169,7 +170,7 @@ export class MyworkComponent implements OnInit {
     'status',
     'action',
   ];
-  dataSource = ELEMENT_DATA;
+  dataSource = WORK_DATA;
 
   
   constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
@@ -194,9 +195,9 @@ export class MyworkComponent implements OnInit {
   loadMyWorkPage(): void {
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    this.dataSource = ELEMENT_DATA.slice(startIndex, endIndex);
+    this.dataSource = WORK_DATA.slice(startIndex, endIndex);
     
-    this.totalItems = ELEMENT_DATA.length;
+    this.totalItems = WORK_DATA.length;
 
     if(this.paginator)
     {

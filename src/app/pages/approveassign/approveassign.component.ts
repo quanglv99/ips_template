@@ -19,6 +19,7 @@ import { ApproveAssignDetailPopupComponent } from 'src/app/popups/approve-assign
 import { ELEMENT_DATA } from '../myassign/myassign.component';
 
 
+
 @Component({
   selector: 'app-approveassign',
   standalone: true,
@@ -50,6 +51,7 @@ export class ApproveassignComponent implements OnInit {
     'id',
     'branchname',
     'createdDate',
+    'owner',
     'employee',
     'status',
     'action',

@@ -1,3 +1,5 @@
+@import "../../shared/mixins";
+
 ::ng-deep {
 	mat-divider {
 	  padding: 10px 0;
@@ -54,6 +56,7 @@ input::file-selector-button {
   margin-left: 50px;
 }
 
+
 .scrollable-content {
     max-height: 400px; 
     overflow-y: auto;
@@ -62,4 +65,15 @@ input::file-selector-button {
   display: flex;
   justify-content: center;
   margin-bottom: 20px;
+}
+
+.other-content
+{
+  display: flex;
+  align-items: center;
+}
+
+.w-50
+{
+  width: 50%;
 }

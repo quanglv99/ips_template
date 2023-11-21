@@ -13,7 +13,7 @@ import { ConfigComponent } from '../config/config.component';
 import { ParameterconfigurationService } from 'src/app/services/parameterconfiguration.service';
 import { ActivatedRoute } from '@angular/router';
 @Component({
-  selector: 'app-addconfig',
+  selector: 'app-editconfig',
   standalone: true,
   imports: [CommonModule,
     MatCheckboxModule,
@@ -33,8 +33,8 @@ import { ActivatedRoute } from '@angular/router';
 export class EditconfigComponent implements OnInit,OnDestroy {
   data: any;
   subscription!: Subscription
-  toppings = new FormControl('');
-  toppingList: string[] = ['Thành phần 1', 'Thành phần 2', 'Thành phần 3'];
+  members = new FormControl('');
+  memberList: string[] = ['Thành phần 1', 'Thành phần 2', 'Thành phần 3'];
   editConfigForm!: FormGroup
   isDisable: boolean = false;
   isFormDirty: boolean = false;
@@ -60,12 +60,22 @@ export class EditconfigComponent implements OnInit,OnDestroy {
         }
         this.createForm()
       }
-    )
+    );
 
 
     this.editConfigForm.valueChanges.subscribe(() => {
       this.isFormDirty = this.editConfigForm.dirty;
-    })
+    });
+    console.log("hihi", this.data)
+    this.editConfigForm = this.formBuilder.group({
+      inputConfig: [{ value: this.data.nameConfig, disabled: this.isDisable}],
+      ingredientConfig: [{ value: this.data.ingredientConfig, disabled: this.isDisable}],
+      noteConfig: [{ value: this.data.noteConfig, disabled: this.isDisable}],
+    });
+
+    this.editConfigForm.valueChanges.subscribe(() => {
+      this.isFormDirty = this.editConfigForm.dirty;
+    });
   }
 
   getConfigById(id:any):void

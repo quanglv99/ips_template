@@ -70,6 +70,7 @@ export default [
             (c) => c.ProfileComponent
           ),
       },
+      { path: '**', redirectTo: 'dashboard' }
     ],
   },
 ] as Route[];
