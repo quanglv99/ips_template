@@ -1,5 +1,8 @@
+import { JobcodeModel } from "./jobcode";
+
 export interface MemberModel {
   id: number;
   name: string;
-  jobcodes: string[];
+  jobcodes: JobcodeModel[];
+  status: string;
 }
