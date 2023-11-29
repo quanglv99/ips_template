@@ -11,21 +11,8 @@
     }],
     "profile": {
         "name": "typicode"
-    },
+    }
 
 
-    "jobcode": [{
-            "id": 1,
-            "description": "Jobcode 1"
-        },
 
-        {
-            "id": 2,
-            "description": "Jobcode 1"
-        },
-        {
-            "id": 3,
-            "description": "Jobcode 1"
-        }
-    ]
 }

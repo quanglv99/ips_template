@@ -13,6 +13,10 @@ import { MatInputModule } from '@angular/material/input';
 import { ConfigService } from 'src/app/services/config.service';
 import { MemberConfigModel } from 'src/app/shared/memberConfig';
 import { JobcodeModel } from 'src/app/shared/jobcode';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { JobcodeService } from 'src/app/services/jobcode.service';
+import { HttpClientModule } from '@angular/common/http';
 
 const ELEMENT_DATA: JobcodeModel[] = [
   {
@@ -56,7 +60,8 @@ const ELEMENT_DATA: JobcodeModel[] = [
     MatPaginatorModule,
     MatSortModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   templateUrl: './jobcode.component.html',
   styleUrls: ['./jobcode.component.scss']
@@ -67,6 +72,7 @@ export class JobcodeComponent implements OnInit{
   pageSize = this.pageSizeOptions[0];
   pageNumber = 1;
   totalItems = 0;
+
 
   Filterchange($event: KeyboardEvent) {
     throw new Error('Method not implemented.');
@@ -80,7 +86,7 @@ export class JobcodeComponent implements OnInit{
   dataSource = ELEMENT_DATA;
 
 
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService, private http: HttpClient, private jobcodeService: JobcodeService) {}
 
   onRowClick(element: any): void {
     this.configService.setConfigData(element);
@@ -89,8 +95,17 @@ export class JobcodeComponent implements OnInit{
 
   ngOnInit(): void {
     this.loadMyWorkPage();
+    this.getJobcodeList();
   }
 
+  getJobcodeList(){
+    this.jobcodeService.getJobcodeList().subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: console.log,
+    });
+  }
   loadMyWorkPage(): void {
     const startIndex = (this.pageNumber - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
