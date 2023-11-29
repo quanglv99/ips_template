@@ -1,6 +1,7 @@
 @import "../../shared/mixins";
 
 .table-responsive {
+  max-height: 580px;
   overflow-x: auto;
 }
 
@@ -27,12 +28,15 @@ th.mat-header-cell {
   margin: 0;
 }
 
+
 ::ng-deep {
   .table-header {
     @include customBoxShadow();
   }
   .mdc-data-table__content tr:hover {
-    background-color: #cccccc67;
+    background-color: whitesmoke;
+    color: #39a0e6;
+    cursor: pointer;
   }
   .card-table {
     @include customBoxShadow();
@@ -87,8 +91,9 @@ input:hover {
 
 .btn-icon {
   color: #555555;
-  text-decoration:  none;
+  text-decoration: none;
   &:hover {
     cursor: pointer;
   }
 }
+

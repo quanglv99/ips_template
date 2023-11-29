@@ -1,6 +1,7 @@
 @import '../../shared/mixins';
 
 .table-responsive {
+  max-height: 580px;
   overflow-x: auto;
 }
 
@@ -29,7 +30,9 @@ th.mat-header-cell {
 
   }
   .mdc-data-table__content tr:hover {
-    background-color: #cccccc67
+    background-color: whitesmoke;
+    color: #39a0e6;
+    cursor: pointer;
 }
   .card-table {
     @include customBoxShadow();

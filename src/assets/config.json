@@ -1,19 +1,8 @@
 {
-	"API_URL": "https://64c73fb60a25021fde923277.mockapi.io/users",
-	"HOME_URL": "https://5b3c81b3e7659e0014969656.mockapi.io/list-users",
-	"DASHBOARD_URL": "https://my-json-server.typicode.com/quanglv99/api/rules",
-	"IPS_LASTEST_MESSAGE": "https://10.125.10.52:8443/ips/management/desktop/live_message/get_lastest",
-	"PANEL_STATE": "https://10.125.10.52:8443/ips/management/desktop/get_hw_panel_state",
-	"LOGIN": "https://10.125.10.52:8443/ips/management/login",
-	"LOGON": "https://10.125.10.52:8443/ips/management/security/logon/",
-	"LOGOFF": "https://10.125.10.52:8443/ips/management/security/logoff/",
-	"LOGOUT": "https://10.125.10.52:8443/ips/management/logout",
-	"VIDEO_LIST": "https://10.125.10.52:8443/ips/management/video/config/list",
-	"LIST_DEVICE": "https://10.125.10.52:8443/ips/management/device_mapping/get_list",
-	"START_DEVICE": "https://10.125.10.52:8443/ips/management/control/panel/start",
-	"RESET_DEVICE": "https://10.125.10.52:8443/ips/management/control/panel/reset",
-	"GET_SITEID": "https://10.125.10.52:8443/ips/management/sas/base/coporate/site/id",
-	"IPS_WELCOME": "https://10.125.10.52:8443/ips/management/welcome",
-	"IPS_HELLO": "https://10.125.10.52:8443/ips/management/hello",
-	"IPS_RESTART_API": "https://10.125.10.52:8443/ips/management/communication/api/restart"
-  }
+	"EMPLOYEES": "http://localhost:3000/employees",
+	"WORK_STATUS": "http://localhost:3000/work_status",
+	"ASSIGN_STATUS": "http://localhost:3000/assign_status",
+	"ASSIGN_LIST": "http://localhost:3000/assign_list",
+	"WORK_LIST": "http://localhost:3000/work_list",
+	"USER_DETAIL": "http://localhost:3000/user_detail"
+}

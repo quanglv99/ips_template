@@ -7,13 +7,13 @@
     </div>
     <mat-divider></mat-divider>
     <mat-card-content class="scrollable-content">
-        <app-step-progress [steps]="state" [currentStep]="currentStep"></app-step-progress>
+        <app-step-progress [steps]="status" [currentStep]="currentStep"></app-step-progress>
             <mat-divider></mat-divider>
-        <form class="form-input" [formGroup]="updateWorkForm">
+        <form class="form-input" [formGroup]="updateWorkForm" >
             <div class="inline-item">
                 <p><span>Chi nhánh</span>
                     <mat-form-field appearance="outline" class="w-300">
-                        <input matInput type="text" formControlName="branch">
+                        <input matInput type="text" formControlName="branchname">
                     </mat-form-field>
                 </p>
             </div>
@@ -53,7 +53,7 @@
                 <p><span>Người phân công</span>
                     <mat-form-field appearance="outline" class="w-300">
                         <mat-select formControlName="owner">
-                            <mat-option *ngFor="let owner of owners" [value]="owner">{{owner.code}}-{{owner.fullname}}</mat-option>
+                            <mat-option *ngFor="let owner of owners" [value]="owner.id">{{owner.code}}-{{owner.fullname}}</mat-option>
                           </mat-select>
                     </mat-form-field>
                 </p>
@@ -63,7 +63,7 @@
                     <mat-form-field appearance="outline" class="w-300">
                         <mat-label>Chọn thành phần</mat-label>
                         <mat-select formControlName="member">
-                            <mat-option *ngFor="let member of members" [value]="member">{{member}}</mat-option>
+                            <mat-option *ngFor="let member of members"  [value]="member.id">{{member.name}}</mat-option>
                           </mat-select>
                     </mat-form-field>
                 </p>
@@ -71,8 +71,8 @@
             <div class="inline-item">
                 <p><span>Người nhận</span>
                     <mat-form-field appearance="outline" class="w-300">
-                        <mat-select formControlName="employee">
-                            <mat-option *ngFor="let employee of employees" [value]="employee">{{employee.code}}-{{employee.fullname}}</mat-option>
+                        <mat-select formControlName="employee" >
+                            <mat-option *ngFor="let employee of employees" [value]="employee.id">{{employee.code}}-{{employee.fullname}}</mat-option>
                           </mat-select>
                     </mat-form-field>
                 </p>
@@ -90,9 +90,6 @@
                         <input matInput type="text" formControlName="approver">
                     </mat-form-field>
                 </p>
-            </div>
-            <div class="inline-item">
-                <p><span>Khác</span><input type="file" name="others" formControlName="file" class="file-upload" /></p>
             </div>
             <mat-divider></mat-divider>
             <div class="others">
@@ -120,8 +117,9 @@
     <mat-divider></mat-divider>
     <mat-card-footer>
         <div class="footer">
+          
             <button mat-raised-button color="warn" *ngIf="data.status.id !== 6" >Hủy Ủy quyền</button>
-            <button mat-raised-button color="primary" class="ml-50" *ngIf="data.status.id === 1 || data.status.id === 2 " [disabled]="!isFormDirty">Cập nhật</button>
+            <button mat-raised-button color="primary" class="ml-50" *ngIf="data.status.id === 1 || data.status.id === 2 " [disabled]="!isFormDirty" (click)="updateWork()">Cập nhật</button>
         </div>
     </mat-card-footer>
 </mat-card>

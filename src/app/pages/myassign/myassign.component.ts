@@ -6,139 +6,23 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MyAssignDetailPopupComponent } from 'src/app/popups/my-assign-detail-popup/my-assign-detail-popup.component';
 import { AssignModel } from 'src/app/shared/assign';
-import { STATES } from 'src/app/shared/assign-states';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { EMPLOYEES_LIST } from 'src/app/shared/employees-value';
+import { HttpClient } from '@angular/common/http';
+import { AppService } from 'src/app/services/app.service';
+import { Observable } from 'rxjs';
+import { ASSIGN_STATUS } from 'src/app/shared/assign-status';
 
 
 
 export const ELEMENT_DATA: AssignModel[] = [
-  {
-    id: 1,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[1],
-  },
-  {
-    id: 2,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[1],
-  },
-  {
-    id: 3,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[2],
-  },
-  {
-    id: 4,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[3],
-  },
-  {
-    id: 5,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[4],
-  },
-  {
-    id: 6,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[5],
-  },
-  {
-    id: 7,
-    branchname: 'Tây Hồ',
-    member: 'Thành phần 1',
-    startDate: '2023-08-17T18:17:39.691Z',
-    endDate: '2023-08-17T18:17:39.691Z',
-    owner: EMPLOYEES_LIST[0],
-    employee: EMPLOYEES_LIST[1],
-    note: 'Giup anh nhé',
-    approver: '',
-    file: '',
-    createdDate: '2023-08-17T18:17:39.691Z',
-    createdUser: "Admin",
-    updatedDate: "2023-08-17T18:17:39.691Z",
-    updatedUser: "Admin",
-    status: STATES[6],
-  },
+  
 ];
 
 @Component({
@@ -159,62 +43,76 @@ export const ELEMENT_DATA: AssignModel[] = [
   styleUrls: ['./myassign.component.scss']
 })
 export class MyassignComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = this.pageSizeOptions[0];
   pageNumber = 1;
   totalItems = 0;
-
-  Filterchange($event: KeyboardEvent) {
-    throw new Error('Method not implemented.');
-  }
+  reponseData: any;
   displayedColumns: string[] = [
     'id',
     'branchname',
     'createdDate',
+    'owner',
     'employee',
+    'member',
     'status',
     'action',
   ];
   dataSource: any;
 
+  data: any;
 
-  constructor(private dialog: MatDialog) { }
+
+  constructor(private dialog: MatDialog,private http: HttpClient,
+    private appConfig: AppService) { }
 
   onClick(element: any): void {
     const dialogRef = this.dialog.open(MyAssignDetailPopupComponent, {
       data: element
     });
     dialogRef.afterClosed().subscribe(result => {
-
+      this.refreshTableData();
     });
   }
 
 
   ngOnInit(): void {
-    this.loadMyWorkPage();
+    this.initDataTable()
   }
 
-  loadMyWorkPage(): void {
-    const startIndex = (this.pageNumber - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    const slicedData = ELEMENT_DATA.slice(startIndex, endIndex);
-  
-    this.dataSource = new MatTableDataSource(slicedData);
-
-    this.totalItems = ELEMENT_DATA.length;
-
-    if (this.paginator) {
-      this.paginator.length = this.totalItems;
-      this.paginator.pageIndex = 0;
+  initDataTable() {
+    if (!this.dataSource) {
+      const url = this.appConfig.getAssignList();
+      this.http.get(url).subscribe((result: any) => {
+        this.data = result;
+        this.dataSource = new MatTableDataSource<AssignModel>(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     }
-
   }
 
-  onPageChange(event: any): void {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.loadMyWorkPage();
+  Filterchange(event: Event) {
+    const filvalue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filvalue;
+  }
+
+  statusFilter = ASSIGN_STATUS;
+  onChange($event: any) {
+    if ($event.value != 0) {
+      let filerData = this.data.filter(
+        (item: any) => item.status.id == $event.value
+      );
+      this.dataSource = new MatTableDataSource<AssignModel>(filerData);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    } else {
+      this.dataSource = new MatTableDataSource<AssignModel>(this.data);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
   }
 
   deleteRow(element: any): void {
@@ -222,14 +120,31 @@ export class MyassignComponent implements OnInit {
       width: '300px',
       data: {
         message: 'Are you sure to detele this record?',
-        showYesNo: true
-      }
+        showYesNo: true,
+      },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-
+        this.deleteRecord(element.id).subscribe(() => {
+          this.dataSource.data = this.dataSource.data.filter(
+            (item: AssignModel) => item.id !== element.id
+          );
+        });
       }
-    })
+    });
+  }
+
+  deleteRecord(id: number): Observable<any> {
+    const url = `${this.appConfig.getAssignList()}/${id}`;
+    return this.http.delete(url);
+  }
+
+  refreshTableData() {
+    const url = this.appConfig.getAssignList();
+    this.http.get(url).subscribe((result: any) => {
+      this.data = result;
+      this.dataSource.data = this.data;
+    });
   }
 }

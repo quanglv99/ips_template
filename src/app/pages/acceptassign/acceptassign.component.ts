@@ -1,4 +1,3 @@
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -8,20 +7,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MyworkService } from 'src/app/services/mywork.service';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AcceptAssignDetailPopupComponent } from 'src/app/popups/accept-assign-detail-popup/accept-assign-detail-popup.component';
 import { ELEMENT_DATA } from '../myassign/myassign.component';
-
+import { AppService } from 'src/app/services/app.service';
+import { HttpClient } from '@angular/common/http';
+import { AssignModel } from 'src/app/shared/assign';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-acceptassign',
   standalone: true,
-  imports: [CommonModule,MatFormFieldModule,
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
     MatCardModule,
     MatDividerModule,
     MatButtonModule,
@@ -31,71 +34,78 @@ import { ELEMENT_DATA } from '../myassign/myassign.component';
     MatSortModule,
     MatIconModule,
     MatInputModule,
-    MatDialogModule],
-    templateUrl: './acceptassign.component.html',
-    styleUrls: ['./acceptassign.component.scss']
+    MatDialogModule,
+  ],
+  templateUrl: './acceptassign.component.html',
+  styleUrls: ['./acceptassign.component.scss'],
 })
 export class AcceptassignComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = this.pageSizeOptions[0];
   pageNumber = 1;
   totalItems = 0;
-
-  Filterchange($event: KeyboardEvent) {
-    throw new Error('Method not implemented.');
-  }
   displayedColumns: string[] = [
     'id',
     'branchname',
     'createdDate',
+    'owner',
     'employee',
+    'member',
     'status',
     'action',
   ];
-  dataSource:any;
+  dataSource: any;
 
-  
-  constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
+  data: any;
 
-  onRowClick(element: any): void {
-    this.myworkService.setMyWorkData(element);
-  }
-  onClick(element: any): void{
+  constructor(
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private appConfig: AppService
+  ) {}
+
+  onClick(element: any): void {
     const dialogRef = this.dialog.open(AcceptAssignDetailPopupComponent, {
-      data: element 
+      data: element,
     });
-    dialogRef.afterClosed().subscribe(result => {
-     
+    dialogRef.afterClosed().subscribe((result) => {
+      this.refreshTableData();
     });
   }
-
 
   ngOnInit(): void {
-    this.loadMyWorkPage();
+    this.initDataTable();
   }
 
-  loadMyWorkPage(): void {
-    const startIndex = (this.pageNumber - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    
-    // Ensure endIndex does not exceed the length of the array
-    const slicedData = ELEMENT_DATA.filter( r => r.status.id >= 2).slice(startIndex, endIndex);
-  
-    this.dataSource = new MatTableDataSource(slicedData);
-    
-    this.totalItems = ELEMENT_DATA.filter( r => r.status.id >= 2).length;
-  
-    if (this.paginator) {
-      this.paginator.length = this.totalItems;
-      this.paginator.pageIndex = 0;
+  initDataTable() {
+    if (!this.dataSource) {
+      const url = this.appConfig.getAssignList();
+      this.http
+        .get(url)
+        .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
+        .subscribe((filterResult: any) => {
+          this.data = filterResult;
+          this.dataSource = new MatTableDataSource<AssignModel>(this.data);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        });
     }
-    
   }
 
-  onPageChange(event: any): void {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.loadMyWorkPage();
+  Filterchange(event: Event) {
+    const filvalue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filvalue;
+  }
+  refreshTableData() {
+    const url = this.appConfig.getAssignList();
+    this.http
+      .get(url)
+      .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
+      .subscribe((result: any) => {
+        this.data = result;
+        this.dataSource.data = this.data;
+      });
   }
 }

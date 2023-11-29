@@ -1,4 +1,4 @@
-export const STATES = [
+export const ASSIGN_STATUS = [
     { id: 1 , name: 'Tạo giao dịch' },
     { id: 2 , name: 'Nhận ủy quyền' },
     { id: 3 , name: 'Phê duyệt' },

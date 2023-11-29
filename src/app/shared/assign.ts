@@ -1,9 +1,10 @@
 import { Employee } from "./employees";
+import { MemberModel } from "./members";
 
 export interface AssignModel {
     id: number;
     branchname: string;
-    member: string;
+    member: MemberModel;
     startDate: string;
     endDate: string;
     owner: Employee;
