@@ -13,4 +13,9 @@ export default [
     loadChildren: () => import('../../pages/membercontrol/membercontrol.route')
   },
 
+  {
+    path: 'jobcode',
+    loadChildren: () => import('../../pages/jobcode/jobcode.route')
+  },
+
 ] as Route;

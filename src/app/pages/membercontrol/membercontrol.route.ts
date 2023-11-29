@@ -5,7 +5,7 @@ export default [
   { path: '', component: MembercontrolComponent },
   {
     path: 'add-member',
-    loadComponent: () => import('../addconfig/addconfig.component').then(r => r.AddconfigComponent)
+    loadComponent: () => import('../addmember/addmember.component').then(r => r.AddmemberComponent)
   },
   {
     path: ':id',
