@@ -5,12 +5,12 @@
             <mat-divider></mat-divider>
             <mat-card-content>
                 <form class="form-input" [formGroup]="registerWorkForm">
-                    <button mat-raised-button color="primary" [disabled]="registerWorkForm.invalid" class="right-btn" >Lưu</button>
+                    <button mat-raised-button color="primary" [disabled]="registerWorkForm.invalid" class="right-btn" (click)="onSummit()">Lưu</button>
                     <div class="inline-item">
                         <p><span>Chi nhánh</span>
                             <mat-form-field appearance="outline" class="w-300">
                                 <mat-label>Chọn chi nhánh</mat-label>
-                                <mat-select formControlName="branch">
+                                <mat-select formControlName="branchname">
                                     <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
                                   </mat-select>
                             </mat-form-field>
@@ -31,7 +31,7 @@
                             <mat-form-field appearance="outline" class="w-300">
                                 <mat-label>Chọn thành phần</mat-label>
                                 <mat-select formControlName="member">
-                                    <mat-option *ngFor="let member of members" [value]="member">{{member}}</mat-option>
+                                    <mat-option *ngFor="let member of members" [value]="member">{{member.name}}</mat-option>
                                   </mat-select>
                             </mat-form-field>
                         </p>
@@ -85,28 +85,6 @@
                             </p>
                     </div>
                 </form>
-            </mat-card-content>
-        </mat-card>
-        <mat-card class="card-others">
-            <mat-card-title>Thông tin bản tạo</mat-card-title>
-            <mat-divider></mat-divider>
-            <mat-card-content class="row">
-                <div class="col-6">
-                    <div class="inline-item">
-                        <p><span>Ngày tạo</span>14/11/2023</p>
-                    </div>
-                    <div class="inline-item">
-                        <p><span>Người tạo</span>QuangLV</p>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="inline-item">
-                        <p><span>Ngày cập nhật</span>14/11/2023</p>
-                    </div>
-                    <div class="inline-item">
-                        <p><span>Người cập nhật</span>QuangLV</p>
-                    </div>
-                </div>
             </mat-card-content>
         </mat-card>
     </div>

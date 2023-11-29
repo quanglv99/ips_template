@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatCardModule } from '@angular/material/card';
@@ -12,11 +12,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MyWorkModel } from 'src/app/shared/my-work';
+import { StepProgressComponent } from '../../shared/step-progress/step-progress.component';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { WORK_STATES } from 'src/app/shared/my-work-states';
 
 @Component({
   selector: 'app-work-for-me-detail-popup',
   standalone: true,
-  imports: [CommonModule, MatCardModule,
+  templateUrl: './work-for-me-detail-popup.component.html',
+  styleUrls: ['./work-for-me-detail-popup.component.scss'],
+  imports: [
+    CommonModule,
+    MatCardModule,
     MatButtonModule,
     MatDividerModule,
     MatFormFieldModule,
@@ -25,15 +32,45 @@ import { MyWorkModel } from 'src/app/shared/my-work';
     RouterModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule,],
-  templateUrl: './work-for-me-detail-popup.component.html',
-  styleUrls: ['./work-for-me-detail-popup.component.scss']
+    MatNativeDateModule,
+    StepProgressComponent,
+    ReactiveFormsModule,
+  ],
 })
-export class WorkForMeDetailPopupComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: MyWorkModel, private dialogRef: MatDialogRef<WorkForMeDetailPopupComponent>) {}
+export class WorkForMeDetailPopupComponent implements OnInit {
+  updateWorkForm!: FormGroup;
+  currentStep!: number;
+  status = WORK_STATES;
+  isDisable: boolean = true;
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: MyWorkModel,
+    private dialogRef: MatDialogRef<WorkForMeDetailPopupComponent>,
+    private formBuilder: FormBuilder
+  ) {}
+  ngOnInit(): void {
+    this.currentStep = this.data.status.id;
+    
+    this.initializeForm();
+  }
 
-  onClose()
-  {
+  initializeForm() {
+    this.updateWorkForm = this.formBuilder.group({
+      branchname: [{ value: this.data.branchname, disabled: this.isDisable }],
+      member: [{ value: this.data.member, disabled: this.isDisable }],
+      owner: [{ value: this.data.owner , disabled: this.isDisable }],
+      startDate: [{ value: this.data.startDate, disabled: this.isDisable }],
+      endDate: [{ value: this.data.endDate, disabled: this.isDisable }],
+      employee: [{ value: this.data.employee, disabled: this.isDisable }],
+      note: [{ value: this.data.note, disabled: this.isDisable }],
+      approver: [{ value: this.data.approver, disabled: this.isDisable }],
+      createdDate: [this.data.createdDate],
+      createdUser: [this.data.createdUser],
+      updatedDate: [new Date()],
+      updatedUser: ['QuangLV'],
+      status: [''],
+    });
+  }
+  onClose() {
     this.dialogRef.close();
   }
 }

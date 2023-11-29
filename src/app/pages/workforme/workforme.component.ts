@@ -5,21 +5,24 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
-import { MatTableModule } from '@angular/material/table';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MyworkService } from 'src/app/services/mywork.service';
-import {MatDialog, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { WorkForMeDetailPopupComponent } from 'src/app/popups/work-for-me-detail-popup/work-for-me-detail-popup.component';
-import { WORK_DATA } from '../mywork/mywork.component';
+import { MyWorkModel } from 'src/app/shared/my-work';
+import { HttpClient } from '@angular/common/http';
+import { AppService } from 'src/app/services/app.service';
 
 @Component({
   selector: 'app-workforme',
   standalone: true,
-  imports: [CommonModule,MatFormFieldModule,
+  imports: [
+    CommonModule,
+    MatFormFieldModule,
     MatCardModule,
     MatDividerModule,
     MatButtonModule,
@@ -29,68 +32,63 @@ import { WORK_DATA } from '../mywork/mywork.component';
     MatSortModule,
     MatIconModule,
     MatInputModule,
-    MatDialogModule],
+    MatDialogModule,
+  ],
   templateUrl: './workforme.component.html',
-  styleUrls: ['./workforme.component.scss']
+  styleUrls: ['./workforme.component.scss'],
 })
 export class WorkformeComponent implements OnInit {
-  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator | undefined;
+  @ViewChild(MatPaginator) paginator!: MatPaginator
+    @ViewChild(MatSort) sort!: MatSort;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = this.pageSizeOptions[0];
   pageNumber = 1;
   totalItems = 0;
-
-  Filterchange($event: KeyboardEvent) {
-    throw new Error('Method not implemented.');
-  }
   displayedColumns: string[] = [
     'id',
     'branchname',
     'createdDate',
+    'owner',
     'employee',
+    'member',
     'status',
     'action',
   ];
-  dataSource = WORK_DATA;
+  dataSource: any;
 
-  
-  constructor(private myworkService: MyworkService, private dialog:MatDialog) {}
+  data: any;
 
-  onRowClick(element: any): void {
-    this.myworkService.setMyWorkData(element);
-  }
-  onClick(element: any): void{
+  constructor(
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private appConfig: AppService
+  ) {}
+
+  onClick(element: any): void {
     const dialogRef = this.dialog.open(WorkForMeDetailPopupComponent, {
-      data: element 
+      data: element,
     });
-    dialogRef.afterClosed().subscribe(result => {
-     
-    });
+    dialogRef.afterClosed().subscribe((result) => {});
   }
-
 
   ngOnInit(): void {
-    this.loadMyWorkPage();
+    this.initDataTable();
   }
 
-  loadMyWorkPage(): void {
-    const startIndex = (this.pageNumber - 1) * this.pageSize;
-    const endIndex = startIndex + this.pageSize;
-    this.dataSource = WORK_DATA.slice(startIndex, endIndex);
-    
-    this.totalItems = WORK_DATA.length;
-
-    if(this.paginator)
-    {
-      this.paginator.length = this.totalItems;
-      this.paginator.pageIndex = 0;
+  initDataTable() {
+    if (!this.dataSource) {
+      const url = this.appConfig.getWorkList();
+      this.http.get(url).subscribe((result: any) => {
+        this.data = result;
+        this.dataSource = new MatTableDataSource<MyWorkModel>(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     }
-    
   }
 
-  onPageChange(event: any): void {
-    this.pageNumber = event.pageIndex + 1;
-    this.pageSize = event.pageSize;
-    this.loadMyWorkPage();
+  Filterchange(event: Event) {
+    const filvalue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filvalue;
   }
 }

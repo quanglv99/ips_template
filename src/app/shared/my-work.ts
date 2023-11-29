@@ -1,10 +1,11 @@
 import { Employee } from "./employees";
+import { MemberModel } from "./members";
 
 export interface MyWorkModel {
   id: number;
   branchname: string;
   owner: Employee;
-  member: string;
+  member: MemberModel;
   startDate: string;
   endDate: string;
   employee: Employee;
