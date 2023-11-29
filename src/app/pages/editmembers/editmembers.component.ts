@@ -15,11 +15,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { ConfigComponent } from '../config/config.component';
 import { ActivatedRoute } from '@angular/router';
-import { MEMBER_LIST } from 'src/app/shared/member-value';
-import { ConfigService } from 'src/app/services/config.service';
 import { MemberService } from 'src/app/services/member.service';
+import { JOBCODE_LIST } from 'src/app/shared/jobcode-value';
+import { MembercontrolComponent } from '../membercontrol/membercontrol.component';
 
 @Component({
   selector: 'app-editmembers',
@@ -37,20 +36,21 @@ import { MemberService } from 'src/app/services/member.service';
     MatButtonModule,
     MatDividerModule,
   ],
+  providers: [MembercontrolComponent],
   templateUrl: './editmembers.component.html',
   styleUrls: ['./editmembers.component.scss']
 })
-export class EditmembersComponent {
+export class EditmembersComponent implements OnInit, OnDestroy {
   data: any;
   subscription!: Subscription;
   members = new FormControl('');
-  memberList = MEMBER_LIST;
+  jobcodeList = JOBCODE_LIST;
   editMemberForm!: FormGroup;
   isDisable: boolean = false;
   isFormDirty: boolean = false;
   constructor(
     private formBuilder: FormBuilder,
-    private config: ConfigComponent,
+    private member: MembercontrolComponent,
     private dataService: MemberService,
     private route: ActivatedRoute
   ) {}
@@ -62,10 +62,12 @@ export class EditmembersComponent {
     this.subscription = this.dataService.getMemberData().subscribe((data) => {
       if (data) {
         this.data = data;
+        console.log('1',data);
       } else {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         if (id) {
           this.getMemberById(id);
+          console.log('2',data);
         }
       }
       this.createForm();
@@ -75,28 +77,33 @@ export class EditmembersComponent {
       this.isFormDirty = this.editMemberForm.dirty;
     });
     this.editMemberForm = this.formBuilder.group({
-      inputConfig: [{ value: this.data.nameConfig, disabled: this.isDisable }],
-      members: [
-        this.data.members.map((member: { name: any }) => member.name),
-        { value: this.data.members, disabled: this.isDisable },
+      inputMember: [{ value: this.data?.nameMember, disabled: this.isDisable }],
+      jobcode: [
+        this.data?.jobcode?.map((jobcode: { nameJobcode: any }) => jobcode.nameJobcode),
+        { value: this.data?.jobcode.nameJobcode, disabled: this.isDisable },
       ],
-      noteConfig: [{ value: this.data.noteConfig, disabled: this.isDisable }],
+      status: [{ value: this.data?.status, disabled: this.isDisable }],
     });
-
     this.editMemberForm.valueChanges.subscribe(() => {
       this.isFormDirty = this.editMemberForm.dirty;
+
+    console.log('hihihi',this.data)
     });
   }
 
   getMemberById(id: any): void {
-    this.data = this.config.dataSource.find((r) => r.id);
+    this.data = this.member.dataSource.find((r) => r.id == id);
   }
 
   createForm(): void {
     this.editMemberForm = this.formBuilder.group({
-      inputConfig: { value: this.data?.nameConfig },
-      ingredientConfig: { value: this.data?.ingredientConfig },
-      noteConfig: { value: this.data?.noteConfig },
+      inputMember: { value: this.data?.nameMember },
+      jobcode: [
+        this.data?.jobcodes.map((jobcode: { nameJobcode: any }) => jobcode.nameJobcode) || [],
+        { value: this.data?.jobcodes, disabled: this.isDisable },
+      ],
+
+      status: { value: this.data?.status },
     });
   }
 }

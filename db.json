@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "user_detail": [
   ],
   "employees": [
@@ -1224,3 +1225,35 @@
     }
   ]
 }
+=======
+    "posts": [{
+        "id": 1,
+        "title": "json-server",
+        "author": "typicode"
+    }],
+    "comments": [{
+        "id": 1,
+        "body": "some comment",
+        "postId": 1
+    }],
+    "profile": {
+        "name": "typicode"
+    },
+
+
+    "jobcode": [{
+            "id": 1,
+            "description": "Jobcode 1"
+        },
+
+        {
+            "id": 2,
+            "description": "Jobcode 1"
+        },
+        {
+            "id": 3,
+            "description": "Jobcode 1"
+        }
+    ]
+}
+>>>>>>> 1226dc8c33f402b529c82f4b32197cd4cc5fcc61
