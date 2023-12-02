@@ -23,6 +23,7 @@ import { MEMBER_LIST } from 'src/app/shared/member-value';
 import { WORK_STATES } from 'src/app/shared/my-work-states';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-work',
@@ -41,7 +42,8 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
     MatNativeDateModule,
     FormsModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
+    NgToastModule,
   ],
   templateUrl: './add-work.component.html',
   styleUrls: ['./add-work.component.scss'],
@@ -55,7 +57,8 @@ export class AddWorkComponent implements OnInit {
     private appService: AppService,
     private http: HttpClient,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toast: NgToastService,
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +77,7 @@ export class AddWorkComponent implements OnInit {
       status: [''],
       createdDate: [new Date()],
       createdUser: ['QuangLV'],
-      updatedDate: [''],
+      updatedDate: [new Date()],
       updatedUser: [''],
       note: [''],
     });
@@ -104,20 +107,12 @@ export class AddWorkComponent implements OnInit {
 
       this.http.post(apiUrl, formData).subscribe(
         (response) => {
-          const dialogRef = this.dialog.open(ConfirmDialogComponent,{
-            width: '300px',
-            data: {message: 'Đăng ký phân công thành công, trở về trang chính?',showYesNo:true}
-          })
-          
-          dialogRef.afterClosed().subscribe( (response) =>
-          {
-            if(response)
-            this.router.navigate(['/default/my-work']);
-          })
+          this.toast.success({detail:"SUCCESS",summary:'Thêm mới thành công',duration:5000});
+          this.router.navigate(['/default/my-work']);
           
         },
         (error) => {
-          console.error('Error adding data:', error);
+          this.toast.error({detail:"ERROR",summary:'Vui lòng thử lại',sticky:true});
         }
       );
     }

@@ -18,6 +18,7 @@ import { ASSIGN_STATUS } from 'src/app/shared/assign-status';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from 'src/app/services/app.service';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
     selector: 'app-accept-assign-detail-popup',
@@ -37,7 +38,8 @@ import { AppService } from 'src/app/services/app.service';
         MatDatepickerModule,
         MatNativeDateModule,
         StepProgressComponent,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgToastModule,
     ]
 })
 export class AcceptAssignDetailPopupComponent implements OnInit {
@@ -51,7 +53,8 @@ export class AcceptAssignDetailPopupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private http: HttpClient,
-    private appService: AppService
+    private appService: AppService,
+    private toast: NgToastService,
   ) {}
   ngOnInit(): void {
     this.currentStep = this.data.status.id;
@@ -87,7 +90,7 @@ export class AcceptAssignDetailPopupComponent implements OnInit {
       this.http.put(url, this.assignForm.value).subscribe
       ( (result) =>
         {
-          console.log("update: ", result)
+          this.toast.info({detail:"INFO",summary:`Bạn đã nhận bản ghi ID: ${this.data.id}`,sticky:true});
           this.dialogRef.close();
         }
       )

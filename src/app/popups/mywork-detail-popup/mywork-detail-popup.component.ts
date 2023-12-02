@@ -24,6 +24,7 @@ import { MY_DATE_FORMATS } from 'src/app/shared/custom-date';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 @Component({
   selector: 'app-mywork-detail-popup',
   standalone: true,
@@ -43,6 +44,7 @@ import { MEMBER_LIST } from 'src/app/shared/member-value';
     MatNativeDateModule,
     StepProgressComponent,
     ReactiveFormsModule,
+    NgToastModule,
   ],
   providers: [
     { provide: DateAdapter, useClass: NativeDateAdapter },
@@ -71,7 +73,8 @@ export class MyworkDetailPopupComponent implements OnInit {
     private dialogRef: MatDialogRef<MyworkDetailPopupComponent>,
     private formBuilder: FormBuilder,
     private appService: AppService,
-    private http: HttpClient
+    private http: HttpClient,
+    private toast: NgToastService,
   ) {}
   ngOnInit(): void {
     this.initData();
@@ -152,10 +155,11 @@ export class MyworkDetailPopupComponent implements OnInit {
       const url = `${this.appService.getWorkList()}/${updatedData.id}`;
       this.http.put(url, updatedData).subscribe(
         (response) => {
+          this.toast.success({detail:"SUCCESS",summary:'Đã cập nhật thành công',duration:5000});
           this.dialogRef.close();
         },
         (error) => {
-          console.error('Update failed', error);
+          this.toast.error({detail:"ERROR",summary:'Vui lòng thử lại',sticky:true});
         }
       );
     }

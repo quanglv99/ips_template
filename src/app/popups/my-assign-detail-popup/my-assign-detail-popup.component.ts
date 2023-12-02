@@ -26,6 +26,7 @@ import { MEMBER_LIST } from 'src/app/shared/member-value';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
     selector: 'app-my-assign-detail-popup',
@@ -49,6 +50,7 @@ import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.comp
         MatStepperModule,
         StepProgressComponent,
         MatDialogModule,
+        NgToastModule,
     ],
     providers: [
       { provide: DateAdapter, useClass: NativeDateAdapter },
@@ -72,7 +74,8 @@ export class MyAssignDetailPopupComponent implements OnInit {
     private formBuilder: FormBuilder,
     private appService: AppService,
     private http: HttpClient,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toast: NgToastService,
   ) {}
   ngOnInit(): void {
     this.initData();
@@ -163,9 +166,11 @@ convertToBase64(file: File): void {
       const url = `${this.appService.getAssignList()}/${updatedData.id}`;
       this.http.put(url, updatedData).subscribe(
         (response) => {
+          this.toast.success({detail:"SUCCESS",summary:'Đã cập nhật thành công',duration:5000});
           this.dialogRef.close();
         },
         (error) => {
+          this.toast.error({detail:"ERROR",summary:'Vui lòng thử lại',sticky:true});
         }
       );
     }

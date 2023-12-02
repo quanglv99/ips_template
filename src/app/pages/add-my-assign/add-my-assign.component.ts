@@ -23,6 +23,7 @@ import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-add-my-assign',
@@ -42,6 +43,7 @@ import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-di
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    NgToastModule,
   ],
   templateUrl: './add-my-assign.component.html',
   styleUrls: ['./add-my-assign.component.scss'],
@@ -67,7 +69,8 @@ export class AddMyAssignComponent implements OnInit {
     private appService: AppService,
     private http: HttpClient,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private toast: NgToastService,
   ) {}
 
   ngOnInit(): void {
@@ -96,7 +99,7 @@ export class AddMyAssignComponent implements OnInit {
     const e_url = this.appService.getEmployees();
     this.http.get(e_url).subscribe((result: any) => {
       this.owners = result;
-      this.employees = result;
+      this.employees = result;   
     });
   }
   setData() {
@@ -135,21 +138,11 @@ convertToBase64(file: File): void {
       const apiUrl = this.appService.getAssignList();
       this.http.post(apiUrl, formValues).subscribe(
         (response) => {
-          console.log("hihihi: ", response)
-          const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-            width: '300px',
-            data: {
-              message: 'Đăng ký ủy quyền thành công, trở về trang chính?',
-              showYesNo: true,
-            },
-          });
-
-          dialogRef.afterClosed().subscribe((response) => {
-            if (response) this.router.navigate(['/default/my-assign']);
-          });
+          this.toast.success({detail:"SUCCESS",summary:'Thêm mới thành công',duration:5000});
+          this.router.navigate(['/default/my-assign']);
         },
         (error) => {
-          console.error('Error adding data:', error);
+          this.toast.error({detail:"ERROR",summary:'Vui lòng thử lại',sticky:true});
         }
       );
     }

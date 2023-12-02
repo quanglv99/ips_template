@@ -118,7 +118,7 @@
     <mat-card-footer>
         <div class="footer">
           
-            <button mat-raised-button color="warn" *ngIf="data.status.id !== 6" >Hủy Ủy quyền</button>
+            <button mat-raised-button color="warn" *ngIf="data.status.id !== 6" >Hủy phân công</button>
             <button mat-raised-button color="primary" class="ml-50" *ngIf="data.status.id === 1 || data.status.id === 2 " [disabled]="!isFormDirty" (click)="updateWork()">Cập nhật</button>
         </div>
     </mat-card-footer>

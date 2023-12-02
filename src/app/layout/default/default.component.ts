@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MenuItems } from '../../shared/menu-items';
+import { NgToastModule } from 'ng-angular-popup';
 
 @Component({
   selector: 'app-default',
@@ -23,6 +24,7 @@ import { MenuItems } from '../../shared/menu-items';
     MatIconModule,
     MatListModule,
     MatMenuModule,
+    NgToastModule,
   ],
   providers:[MenuItems],
   templateUrl: './default.component.html',

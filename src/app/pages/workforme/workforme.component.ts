@@ -79,7 +79,11 @@ export class WorkformeComponent implements OnInit {
     if (!this.dataSource) {
       const url = this.appConfig.getWorkList();
       this.http.get(url).subscribe((result: any) => {
-        this.data = result;
+        this.data =result.sort(
+          (a: MyWorkModel, b: MyWorkModel) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        );
         this.dataSource = new MatTableDataSource<MyWorkModel>(this.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
