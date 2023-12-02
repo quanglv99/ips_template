@@ -18,6 +18,7 @@ import { HttpClient } from '@angular/common/http';
 import { AppService } from 'src/app/services/app.service';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
 import { StepProgressComponent } from "../../shared/step-progress/step-progress.component";
+import { NgToastModule, NgToastService } from 'ng-angular-popup';
 
 @Component({
     selector: 'app-approve-assign-detail-popup',
@@ -37,7 +38,8 @@ import { StepProgressComponent } from "../../shared/step-progress/step-progress.
         MatDatepickerModule,
         MatNativeDateModule,
         ReactiveFormsModule,
-        StepProgressComponent
+        StepProgressComponent,
+        NgToastModule,
     ]
 })
 export class ApproveAssignDetailPopupComponent {
@@ -51,7 +53,8 @@ export class ApproveAssignDetailPopupComponent {
     private formBuilder: FormBuilder,
     private dialog: MatDialog,
     private http: HttpClient,
-    private appService: AppService
+    private appService: AppService,
+    private toast: NgToastService,
   ) {}
   ngOnInit(): void {
     this.currentStep = this.data.status.id;
@@ -87,7 +90,7 @@ export class ApproveAssignDetailPopupComponent {
       this.http.put(url, this.assignForm.value).subscribe
       ( (result) =>
         {
-          console.log("update: ", result)
+          this.toast.info({detail:"INFO",summary:`Bạn đã phê duyệt bản ghi ID: ${this.data.id}`,sticky:true});
           this.dialogRef.close();
         }
       )

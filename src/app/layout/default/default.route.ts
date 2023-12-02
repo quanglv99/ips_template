@@ -63,6 +63,18 @@ export default [
             (c) => c.ProfileComponent
           ),
       },
+      {
+        path: 'biometric-support',
+        loadComponent: () =>
+          import('../../pages/biometric-support/biometric-support.component').then(
+            (c) => c.BiometricSupportComponent
+          ),
+      },
+      {
+        path: 'employees',
+        loadChildren: () =>
+          import('../../pages/employees/employee.route')
+      },
       { path: '**', redirectTo: 'dashboard' }
     ],
   },

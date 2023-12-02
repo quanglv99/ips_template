@@ -13,7 +13,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { AcceptAssignDetailPopupComponent } from 'src/app/popups/accept-assign-detail-popup/accept-assign-detail-popup.component';
-import { ELEMENT_DATA } from '../myassign/myassign.component';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { AssignModel } from 'src/app/shared/assign';
@@ -86,7 +85,11 @@ export class AcceptassignComponent implements OnInit {
         .get(url)
         .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
         .subscribe((filterResult: any) => {
-          this.data = filterResult;
+          this.data = filterResult.sort(
+            (a: AssignModel, b: AssignModel) =>
+              new Date(b.createdDate).getTime() -
+              new Date(a.createdDate).getTime()
+          );
           this.dataSource = new MatTableDataSource<AssignModel>(this.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -104,7 +107,11 @@ export class AcceptassignComponent implements OnInit {
       .get(url)
       .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
       .subscribe((result: any) => {
-        this.data = result;
+        this.data = result.sort(
+          (a: AssignModel, b: AssignModel) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        );
         this.dataSource.data = this.data;
       });
   }

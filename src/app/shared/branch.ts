@@ -1,4 +1,4 @@
 export interface BranchModel {
     id: number,
-    name: string,
+    branchname: string,
 }

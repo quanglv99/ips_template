@@ -85,7 +85,11 @@ export class ApproveassignComponent implements OnInit {
         .get(url)
         .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 3)))
         .subscribe((filterResult: any) => {
-          this.data = filterResult;
+          this.data = filterResult.sort(
+            (a: AssignModel, b: AssignModel) =>
+              new Date(b.createdDate).getTime() -
+              new Date(a.createdDate).getTime()
+          );
           this.dataSource = new MatTableDataSource<AssignModel>(this.data);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -102,8 +106,12 @@ export class ApproveassignComponent implements OnInit {
     this.http
       .get(url)
       .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 3)))
-      .subscribe((result: any) => {
-        this.data = result;
+      .subscribe((filterResult: any) => {
+        this.data = filterResult.sort(
+          (a: AssignModel, b: AssignModel) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        );
         this.dataSource.data = this.data;
       });
   }

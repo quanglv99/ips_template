@@ -20,11 +20,6 @@ import { Observable } from 'rxjs';
 import { ASSIGN_STATUS } from 'src/app/shared/assign-status';
 
 
-
-export const ELEMENT_DATA: AssignModel[] = [
-  
-];
-
 @Component({
   selector: 'app-myassign',
   standalone: true,
@@ -86,7 +81,11 @@ export class MyassignComponent implements OnInit {
     if (!this.dataSource) {
       const url = this.appConfig.getAssignList();
       this.http.get(url).subscribe((result: any) => {
-        this.data = result;
+        this.data = result.sort(
+          (a: AssignModel, b: AssignModel) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        );
         this.dataSource = new MatTableDataSource<AssignModel>(this.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -143,7 +142,11 @@ export class MyassignComponent implements OnInit {
   refreshTableData() {
     const url = this.appConfig.getAssignList();
     this.http.get(url).subscribe((result: any) => {
-      this.data = result;
+      this.data = result.sort(
+        (a: AssignModel, b: AssignModel) =>
+          new Date(b.createdDate).getTime() -
+          new Date(a.createdDate).getTime()
+      );
       this.dataSource.data = this.data;
     });
   }

@@ -45,6 +45,12 @@ const MENUITEMS = [
     type: 'link',
     icon: 'voicemail',
   },
+  {
+    state: 'employees',
+    name: 'Quản lý nhân sự',
+    type: 'link',
+    icon: 'account_circle',
+  },
   
 ];
 
