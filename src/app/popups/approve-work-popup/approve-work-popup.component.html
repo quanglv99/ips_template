@@ -1,7 +1,6 @@
-
 <mat-card>
     <div class="header">
-        <mat-card-title>Chi tiết nhận Uỷ quyền</mat-card-title>
+        <mat-card-title>Chi tiết phân công tôi phê duyệt</mat-card-title>
         <a class="btn-close" (click)="onClose()">
             <i class="material-icons">close</i>
         </a>
@@ -10,7 +9,7 @@
     <app-step-progress [steps]="status" [currentStep]="currentStep"></app-step-progress>
     <mat-divider></mat-divider>
     <mat-card-content class="scrollable-content">
-        <form class="form-input" [formGroup]="assignForm">
+        <form class="form-input" [formGroup]="updateWorkForm">
             <div class="row">
                 <div class="col-6">
                     <div class="inline-item">
@@ -76,9 +75,8 @@
     </mat-card-content>
     <mat-divider></mat-divider>
     <mat-card-footer>
-            <div class="footer" *ngIf="data.status.id === 2">
-                <button mat-raised-button  color="warn" (click)="onAccept()" >Đồng ý</button>
-                <button mat-raised-button class="ml-50" >Từ chối</button>
-            </div>
+        <div class="footer">
+            <button mat-raised-button (click)="onClose()">Thoát</button>
+        </div>
     </mat-card-footer>
 </mat-card>

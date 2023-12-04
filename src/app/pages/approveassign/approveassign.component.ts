@@ -17,6 +17,13 @@ import { ApproveAssignDetailPopupComponent } from 'src/app/popups/approve-assign
 import { HttpClient } from '@angular/common/http';
 import { AppService } from 'src/app/services/app.service';
 import { map } from 'rxjs';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { ASSIGN_STATUS } from 'src/app/shared/assign-status';
+import { MEMBER_LIST } from 'src/app/shared/member-value';
 
 @Component({
   selector: 'app-approveassign',
@@ -34,6 +41,11 @@ import { map } from 'rxjs';
     MatIconModule,
     MatInputModule,
     MatDialogModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './approveassign.component.html',
   styleUrls: ['./approveassign.component.scss'],
@@ -58,11 +70,15 @@ export class ApproveassignComponent implements OnInit {
   dataSource: any;
 
   data: any;
-
+  hide = false;
+  formSearch!: FormGroup
+  statusFilter = ASSIGN_STATUS
+  memberFilter = MEMBER_LIST
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
-    private appConfig: AppService
+    private appConfig: AppService,
+    private formBuilder: FormBuilder
   ) {}
 
   onClick(element: any): void {
@@ -75,6 +91,7 @@ export class ApproveassignComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initSearch()
     this.initDataTable();
   }
 
@@ -97,10 +114,48 @@ export class ApproveassignComponent implements OnInit {
     }
   }
 
-  Filterchange(event: Event) {
-    const filvalue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filvalue;
+  
+  refreshSearch() {
+    this.initSearch();
+    this.onSearch();
   }
+
+  initSearch() {
+    this.formSearch = this.formBuilder.group({
+      branchnameInput: [''],
+      startDateInput: [''],
+      endDateInput: [''],
+      ownerInput: [''],
+      employeeInput: [''],
+      memberInput: [''],
+      statusInput: [''],
+    });
+  }
+
+  onSearch() {
+    const url = this.appConfig.getAssignList();
+    const filterParams = this.formSearch.value;
+
+    this.http.get(url).subscribe((result: any) => {
+      this.data = result.filter((item: AssignModel) => {
+        return (
+          (filterParams.branchnameInput === '' || item.branchname.toLowerCase().includes(filterParams.branchnameInput.toLowerCase())) &&
+          (!filterParams.startDateInput || new Date(item.createdDate) >= filterParams.startDateInput) &&
+          (!filterParams.endDateInput || new Date(item.createdDate) <= filterParams.endDateInput) &&
+          (filterParams.ownerInput === '' || item.owner.code.toLowerCase().includes(filterParams.ownerInput.toLowerCase()) || item.owner.fullname.toLowerCase().includes(filterParams.ownerInput.toLowerCase())) &&
+          (filterParams.employeeInput === '' || item.employee.code.toLowerCase().includes(filterParams.employeeInput.toLowerCase()) || item.employee.fullname.toLowerCase().includes(filterParams.employeeInput.toLowerCase())) &&
+          (filterParams.memberInput === '' || item.member.id === filterParams.memberInput) &&
+          (filterParams.statusInput === '' || item.status.id === filterParams.statusInput)
+        );
+      }).sort(
+        (a: AssignModel, b: AssignModel) =>
+          new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+      );
+      this.dataSource.data = this.data;
+    });
+  }
+
+
   refreshTableData() {
     const url = this.appConfig.getAssignList();
     this.http

@@ -86,15 +86,6 @@ export class MyAssignDetailPopupComponent implements OnInit {
     this.initializeForm();
   }
 
-  onClick(): void {
-    const dialogRef = this.dialog.open(ImagePopupComponent, {
-      data: this.data.file
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      
-    });
-  }
-
   initializeForm() {
     this.updateAssignForm = this.formBuilder.group({
       branchname: [{ value: this.data.branchname, disabled: this.isDisable }],

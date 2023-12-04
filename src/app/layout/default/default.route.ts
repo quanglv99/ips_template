@@ -75,6 +75,11 @@ export default [
         loadChildren: () =>
           import('../../pages/employees/employee.route')
       },
+      {
+        path: 'approve-work',
+        loadComponent: () =>
+          import('../../pages/approve-work/approve-work.component').then(c => c.ApproveWorkComponent)
+      },
       { path: '**', redirectTo: 'dashboard' }
     ],
   },

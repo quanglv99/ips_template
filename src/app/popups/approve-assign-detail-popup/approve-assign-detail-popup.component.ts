@@ -96,10 +96,4 @@ export class ApproveAssignDetailPopupComponent {
       )
   }
 
-  openImagePopup(): void {
-    const imageURL = this.data.file
-    this.dialog.open(ImagePopupComponent, {
-      data: imageURL,
-    });
-  }
 }

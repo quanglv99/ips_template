@@ -1,35 +1,33 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
-import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
+import { HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule, FormGroup, FormBuilder } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { RouterModule } from '@angular/router';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { AcceptAssignDetailPopupComponent } from 'src/app/popups/accept-assign-detail-popup/accept-assign-detail-popup.component';
-import { AppService } from 'src/app/services/app.service';
-import { HttpClient } from '@angular/common/http';
-import { AssignModel } from 'src/app/shared/assign';
-import { map } from 'rxjs';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
-import { ASSIGN_STATUS } from 'src/app/shared/assign-status';
+import { MatSortModule, MatSort } from '@angular/material/sort';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
+import { WorkForMeDetailPopupComponent } from 'src/app/popups/work-for-me-detail-popup/work-for-me-detail-popup.component';
+import { AppService } from 'src/app/services/app.service';
 import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { MyWorkModel } from 'src/app/shared/my-work';
+import { WORK_STATES } from 'src/app/shared/my-work-states';
+import { ApproveWorkPopupComponent } from 'src/app/popups/approve-work-popup/approve-work-popup.component';
 
 @Component({
-  selector: 'app-acceptassign',
+  selector: 'app-approve-work',
   standalone: true,
-  imports: [
-    CommonModule,
+  imports: [CommonModule,
     MatFormFieldModule,
     MatCardModule,
     MatDividerModule,
@@ -45,13 +43,12 @@ import { MEMBER_LIST } from 'src/app/shared/member-value';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    ReactiveFormsModule,
-  ],
-  templateUrl: './acceptassign.component.html',
-  styleUrls: ['./acceptassign.component.scss'],
+    ReactiveFormsModule,],
+  templateUrl: './approve-work.component.html',
+  styleUrls: ['./approve-work.component.scss']
 })
-export class AcceptassignComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+export class ApproveWorkComponent {
+  @ViewChild(MatPaginator) paginator!: MatPaginator
   @ViewChild(MatSort) sort!: MatSort;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   pageSize = this.pageSizeOptions[0];
@@ -70,24 +67,22 @@ export class AcceptassignComponent implements OnInit {
   dataSource: any;
 
   data: any;
-  hide= false;
-  formSearch! : FormGroup
-  statusFilter = ASSIGN_STATUS
+  hide = false
+  formSearch!: FormGroup
   memberFilter = MEMBER_LIST
+  statusFilter = WORK_STATES
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
     private appConfig: AppService,
-    private formBuilder: FormBuilder,
-  ) {}
+    private formBuilder: FormBuilder
+  ) { }
 
   onClick(element: any): void {
-    const dialogRef = this.dialog.open(AcceptAssignDetailPopupComponent, {
+    const dialogRef = this.dialog.open(ApproveWorkPopupComponent, {
       data: element,
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.refreshTableData();
-    });
+    dialogRef.afterClosed().subscribe((result) => { });
   }
 
   ngOnInit(): void {
@@ -97,23 +92,19 @@ export class AcceptassignComponent implements OnInit {
 
   initDataTable() {
     if (!this.dataSource) {
-      const url = this.appConfig.getAssignList();
-      this.http
-        .get(url)
-        .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
-        .subscribe((filterResult: any) => {
-          this.data = filterResult.sort(
-            (a: AssignModel, b: AssignModel) =>
-              new Date(b.createdDate).getTime() -
-              new Date(a.createdDate).getTime()
-          );
-          this.dataSource = new MatTableDataSource<AssignModel>(this.data);
-          this.dataSource.paginator = this.paginator;
-          this.dataSource.sort = this.sort;
-        });
+      const url = this.appConfig.getWorkList();
+      this.http.get(url).subscribe((result: any) => {
+        this.data = result.sort(
+          (a: MyWorkModel, b: MyWorkModel) =>
+            new Date(b.createdDate).getTime() -
+            new Date(a.createdDate).getTime()
+        );
+        this.dataSource = new MatTableDataSource<MyWorkModel>(this.data);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      });
     }
   }
-
   refreshSearch() {
     this.initSearch();
     this.onSearch();
@@ -132,11 +123,11 @@ export class AcceptassignComponent implements OnInit {
   }
 
   onSearch() {
-    const url = this.appConfig.getAssignList();
+    const url = this.appConfig.getWorkList();
     const filterParams = this.formSearch.value;
 
     this.http.get(url).subscribe((result: any) => {
-      this.data = result.filter((item: AssignModel) => {
+      this.data = result.filter((item: MyWorkModel) => {
         return (
           (filterParams.branchnameInput === '' || item.branchname.toLowerCase().includes(filterParams.branchnameInput.toLowerCase())) &&
           (!filterParams.startDateInput || new Date(item.createdDate) >= filterParams.startDateInput) &&
@@ -147,25 +138,11 @@ export class AcceptassignComponent implements OnInit {
           (filterParams.statusInput === '' || item.status.id === filterParams.statusInput)
         );
       }).sort(
-        (a: AssignModel, b: AssignModel) =>
+        (a: MyWorkModel, b: MyWorkModel) =>
           new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
       );
       this.dataSource.data = this.data;
     });
   }
-
-  refreshTableData() {
-    const url = this.appConfig.getAssignList();
-    this.http
-      .get(url)
-      .pipe(map((result: any) => result.filter((r: any) => r.status.id >= 2)))
-      .subscribe((result: any) => {
-        this.data = result.sort(
-          (a: AssignModel, b: AssignModel) =>
-            new Date(b.createdDate).getTime() -
-            new Date(a.createdDate).getTime()
-        );
-        this.dataSource.data = this.data;
-      });
-  }
 }
+

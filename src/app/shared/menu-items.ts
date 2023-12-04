@@ -22,6 +22,12 @@ const MENUITEMS = [
     icon: 'view_comfy',
   },
   {
+    state: 'approve-work',
+    type: 'link',
+    name: 'Phân công phê duyệt',
+    icon: 'crop_7_5',
+  },
+  {
     state: 'my-assign',
     name: 'Uỷ quyền của tôi',
     type: 'link',

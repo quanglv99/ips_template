@@ -16,6 +16,13 @@ import { WorkForMeDetailPopupComponent } from 'src/app/popups/work-for-me-detail
 import { MyWorkModel } from 'src/app/shared/my-work';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from 'src/app/services/app.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatSelectModule } from '@angular/material/select';
+import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { WORK_STATES } from 'src/app/shared/my-work-states';
 
 @Component({
   selector: 'app-workforme',
@@ -33,6 +40,11 @@ import { AppService } from 'src/app/services/app.service';
     MatIconModule,
     MatInputModule,
     MatDialogModule,
+    MatExpansionModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatSelectModule,
+    ReactiveFormsModule,
   ],
   templateUrl: './workforme.component.html',
   styleUrls: ['./workforme.component.scss'],
@@ -57,11 +69,15 @@ export class WorkformeComponent implements OnInit {
   dataSource: any;
 
   data: any;
-
+hide =false
+formSearch!: FormGroup
+memberFilter = MEMBER_LIST
+statusFilter = WORK_STATES
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
-    private appConfig: AppService
+    private appConfig: AppService,
+    private formBuilder: FormBuilder
   ) {}
 
   onClick(element: any): void {
@@ -72,6 +88,7 @@ export class WorkformeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.initSearch();
     this.initDataTable();
   }
 
@@ -90,9 +107,46 @@ export class WorkformeComponent implements OnInit {
       });
     }
   }
-
-  Filterchange(event: Event) {
-    const filvalue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filvalue;
+  refreshSearch()
+  {
+    this.initSearch();
+    this.onSearch();
   }
+
+  initSearch() {
+    this.formSearch = this.formBuilder.group({
+      branchnameInput: [''],
+      startDateInput: [''],
+      endDateInput: [''],
+      ownerInput: [''],
+      employeeInput: [''],
+      memberInput: [''],
+      statusInput: [''],
+    });
+  }
+
+  onSearch()
+  {
+  const url = this.appConfig.getWorkList();
+  const filterParams = this.formSearch.value;
+
+  this.http.get(url).subscribe((result: any) => {
+    this.data = result.filter((item: MyWorkModel) => {
+      return (
+        (filterParams.branchnameInput === '' || item.branchname.toLowerCase().includes(filterParams.branchnameInput.toLowerCase())) &&
+        (!filterParams.startDateInput || new Date(item.createdDate) >= filterParams.startDateInput) &&
+        (!filterParams.endDateInput || new Date(item.createdDate) <= filterParams.endDateInput) &&
+        (filterParams.ownerInput === '' || item.owner.code.toLowerCase().includes(filterParams.ownerInput.toLowerCase()) || item.owner.fullname.toLowerCase().includes(filterParams.ownerInput.toLowerCase())) &&
+        (filterParams.employeeInput === '' || item.employee.code.toLowerCase().includes(filterParams.employeeInput.toLowerCase()) || item.employee.fullname.toLowerCase().includes(filterParams.employeeInput.toLowerCase())) &&
+        (filterParams.memberInput === '' || item.member.id === filterParams.memberInput) &&
+        (filterParams.statusInput === '' || item.status.id === filterParams.statusInput)
+      );
+    }).sort(
+      (a: MyWorkModel, b: MyWorkModel) =>
+        new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime()
+    );
+    this.dataSource.data = this.data;
+  });
+  }
+  
 }

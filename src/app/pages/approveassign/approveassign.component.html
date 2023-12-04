@@ -1,13 +1,69 @@
 <h2 class="title">Danh sách ủy quyền chờ phê duyệt</h2>
-<mat-card class="card-table">
-  <mat-card-content>
-    <div class="header-container">
-      <div class="group">
-        <i class="material-icons">search</i>
-        <input placeholder="Search" type="search" class="input" (keyup)="Filterchange($event)">
+<mat-card class="card-table p-10">
+  <mat-expansion-panel hideToggle (opened)="hide = !hide" (closed)="hide = !hide">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        <mat-icon class="icon">{{ hide ? "filter_alt_off" : "filter_alt" }}</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <form class="form-search" [formGroup]="formSearch">
+      <div class="search-container">
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Chi nhánh</mat-label>
+            <input matInput placeholder="Tên chi nhánh" type="text" formControlName="branchnameInput">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Ngày tạo</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+              <input matStartDate placeholder="Ngày tạo từ" formControlName="startDateInput">
+              <input matEndDate placeholder="Ngày tạo đến" formControlName="endDateInput">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Người yêu cầu</mat-label>
+            <input matInput placeholder="Người tạo yêu cầu" type="text" formControlName="ownerInput">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Người nhận</mat-label>
+            <input matInput placeholder="Người nhận" type="text" formControlName="employeeInput">
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Thành viên BQL</mat-label>
+            <mat-select formControlName="memberInput">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let member of memberFilter" [value]="member.id">{{member.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
+        <p>
+          <mat-form-field appearance="outline">
+            <mat-label>Trạng thái</mat-label>
+            <mat-select formControlName="statusInput">
+              <mat-option value="">None</mat-option>
+              <mat-option *ngFor="let status of statusFilter" [value]="status.id">{{status.name}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </p>
       </div>
-    </div>
-  </mat-card-content>
+      <div class="search-action">
+        <button mat-raised-button color="primary" class="btn" (click)="onSearch()">Tìm kiếm</button>
+        <button mat-raised-button color="warn" class="btn" (click)="refreshSearch()">Làm mới</button>
+        <button mat-stroked-button color="primary" class="btn">Xuất danh sách</button>
+      </div>
+    </form>
+  </mat-expansion-panel>
 </mat-card>
 <mat-card class="card-table">
   <mat-card-content>
