@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormControl,
   Validators,
@@ -32,7 +38,7 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     ReactiveFormsModule,
     NgToastModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
@@ -62,28 +68,28 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.hide = !this.hide;
   }
   onSubmit() {
-      setTimeout(() => {
-        const username = this.loginForm.get('username')!.value;
-        const password = this.loginForm.get('password')!.value;
-        this.authService.login(username, password).subscribe(
-          
-          (response) => {
-            if (response.status === 1) {
-              localStorage.setItem('currentToken', response.token);
-              this.router.navigate(['default/dashboard']);
-            } else {
-              this.toast.error({
-                detail: 'Login Failed',
-                summary: 'Username or Password is not correct',
-                sticky: true,
-              });
-            }
-          },
-          (error) => {
-            console.error('Login error', error);
-          }
-        );
-      }, 1000);
+    const username = this.loginForm.get('username')!.value;
+    const password = this.loginForm.get('password')!.value;
+    this.authService.login(username, password).subscribe(
+      (response) => {
+        if (response.status === 1) {
+          this.router.navigate(['default/dashboard']);
+          this.toast.success({
+            detail: 'Login success',
+            summary: 'Welcome to Vault Access Control System',
+            duration: 5000,
+          });
+        } else {
+          this.toast.error({
+            detail: 'Login Failed',
+            summary: 'Username or Password is not correct',
+            sticky: true,
+          });
+        }
+      },
+      (error) => {
+        console.error('Login error', error);
+      }
+    );
   }
 }
-

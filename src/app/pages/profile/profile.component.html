@@ -47,7 +47,7 @@
             <mat-card-content>
                 <div class="form-input" *ngIf="showFormInput">
                     <button mat-stroked-button class="right-btn" (click)="toggleForms()" *ngIf="isEdit">Thoát</button>
-                    <button mat-stroked-button class="right-btn">Cần hỗ trợ</button>
+                    <button mat-stroked-button class="right-btn">Lưu & Cần hỗ trợ</button>
                     <button mat-raised-button color="primary" class="right-btn" [disabled]="biometricForm.invalid"
                         (click)="registerBiometric()">Lưu</button>
                     <form [formGroup]="biometricForm">
@@ -85,7 +85,7 @@
                         </div>
                         <div class="bio-row">
                             <p><span>Ảnh mặt trước CCCD</span>
-                                <button mat-stroked-button (click)="onClick(registerData.fontCard)">Preview</button>
+                                <button mat-stroked-button (click)="onClick(registerData.frontCard)">Preview</button>
                             </p>
                         </div>
                         <div class="bio-row">

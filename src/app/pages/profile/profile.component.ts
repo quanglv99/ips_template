@@ -18,6 +18,7 @@ import { result } from 'lodash';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
 import { NgToastModule, NgToastService } from 'ng-angular-popup';
 import { UserDetailModel } from 'src/app/shared/models/user-detail.models';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-profile',
   standalone: true,
@@ -54,6 +55,7 @@ export class ProfileComponent implements OnInit {
     private http: HttpClient,
     private dialog: MatDialog,
     private toast: NgToastService,
+    private auth: AuthService
   ) {}
   ngOnInit(): void {
     this.register = {} as UserDetailModel;

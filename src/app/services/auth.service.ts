@@ -14,8 +14,6 @@ import { AppService } from "./app.service";
       private http: HttpClient,
       private appConfig: AppService,
     ) {
-      const token = localStorage.getItem('currentToken');
-      this.isAuthenticated = !!token;
     }
   
     login(
@@ -68,6 +66,7 @@ import { AppService } from "./app.service";
             (response: any) => {
               if (response.status === 1) {
                 this.setAuthenticated(false);
+                this.token = '';
               }
             },
             (error) => {
