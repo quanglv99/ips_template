@@ -1,8 +1,11 @@
 {
-	"EMPLOYEES": "http://localhost:3000/employees",
-	"WORK_STATUS": "http://localhost:3000/work_status",
-	"ASSIGN_STATUS": "http://localhost:3000/assign_status",
-	"ASSIGN_LIST": "http://localhost:3000/assign_list",
-	"WORK_LIST": "http://localhost:3000/work_list",
-	"USER_DETAIL": "http://localhost:3000/user_detail"
+    "EMPLOYEES": "http://localhost:3000/employees",
+    "WORK_STATUS": "http://localhost:3000/work_status",
+    "ASSIGN_STATUS": "http://localhost:3000/assign_status",
+    "ASSIGN_LIST": "http://localhost:3000/assign_list",
+    "WORK_LIST": "http://localhost:3000/work_list",
+    "USER_DETAIL": "http://localhost:3000/user_detail",
+    "MEMBER_LIST": "http://localhost:3000/members",
+    "JOBCODE_LIST": "http://localhost:3000/jobcodes",
+    "CONFIG_MEMBER_LIST": "http://localhost:3000/configMembers"
 }

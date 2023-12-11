@@ -1,8 +1,8 @@
 import { Route } from '@angular/router';
-import { ConfigComponent } from './config.component';
+import { FoundationtreeComponent } from './foundationtree.component';
 
 export default [
-  { path: '', component: ConfigComponent },
+  { path: '', component: FoundationtreeComponent },
   {
     path: 'add-config',
     loadComponent: () => import('../addconfig/addconfig.component').then(r => r.AddconfigComponent)

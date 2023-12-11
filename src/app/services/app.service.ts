@@ -1,3 +1,4 @@
+import { JOBCODE_LIST } from './../shared/jobcode-value';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 @Injectable({
@@ -37,6 +38,15 @@ export class AppService {
 
   getUserDetail():string{
     return this.appConfig.USER_DETAIL
+  }
+  getMemberList(): string{
+    return this.appConfig.MEMBER_LIST
+  }
+  getJobcodeList(): string{
+    return this.appConfig.JOBCODE_LIST
+  }
+  getConfigMemberList(): string{
+    return this.appConfig.CONFIG_MEMBER_LIST
   }
 
 }

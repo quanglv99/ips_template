@@ -1,6 +1,222 @@
 {
-<<<<<<< HEAD
-  "user_detail": [
+  "user_detail": [],
+  "members": [
+    {
+      "name": "Thành phần 5",
+      "jobcodes": [
+        {
+          "id": 1,
+          "jobcode": "5.0729",
+          "descriptionJobcode": "Giám đốc phòng kinh doanh",
+          "status": "active"
+        }
+      ],
+      "status": true,
+      "note": "test",
+      "id": 13
+    },
+    {
+      "name": "Thành phần 2",
+      "jobcodes": [
+        {
+          "id": 1,
+          "jobcode": "5.0729",
+          "descriptionJobcode": "Giám đốc phòng kinh doanh",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "jobcode": "4.0329",
+          "descriptionJobcode": "Giám đốc quản lý khách hàng",
+          "status": "active"
+        }
+      ],
+      "status": false,
+      "note": "test",
+      "id": 15
+    },
+    {
+      "name": "Thành phần 3",
+      "jobcodes": [
+        {
+          "id": 1,
+          "jobcode": "5.0729",
+          "descriptionJobcode": "Giám đốc phòng kinh doanh",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "jobcode": "4.0329",
+          "descriptionJobcode": "Giám đốc quản lý khách hàng",
+          "status": "active"
+        }
+      ],
+      "status": true,
+      "note": "",
+      "id": 16
+    },
+    {
+      "name": "Thành phần 7",
+      "jobcodes": [
+        {
+          "id": 1,
+          "jobcode": "5.0729",
+          "descriptionJobcode": "Giám đốc phòng kinh doanh",
+          "status": "active"
+        },
+        {
+          "id": 2,
+          "jobcode": "4.0329",
+          "descriptionJobcode": "Giám đốc quản lý khách hàng",
+          "status": "active"
+        }
+      ],
+      "status": true,
+      "note": "",
+      "id": 17
+    }
+  ],
+  "configMembers": [
+    {
+      "id": 3,
+      "nameConfig": "Config 2",
+      "members": [
+        {
+          "id": 1,
+          "name": "Thành phần 1",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            }
+          ],
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "name": "Thành phần 3",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            }
+          ],
+          "status": "active"
+        }
+      ],
+      "noteConfig": "Note for Config 1"
+    },
+    {
+      "id": 1,
+      "nameConfig": "Config 1",
+      "members": [
+        {
+          "id": 1,
+          "name": "Thành phần 1",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            }
+          ],
+          "status": "active"
+        },
+        {
+          "id": 3,
+          "name": "Thành phần 3",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            }
+          ],
+          "status": "active"
+        }
+      ],
+      "noteConfig": "Note for Config 1"
+    },
+    {
+      "nameConfig": "Config 3",
+      "members": [
+        {
+          "name": "Thành phần 4",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            },
+            {
+              "id": 2,
+              "jobcode": "4.0329",
+              "descriptionJobcode": "Giám đốc quản lý khách hàng",
+              "status": "active"
+            }
+          ],
+          "note": "",
+          "status": "active",
+          "id": 11
+        },
+        {
+          "name": "Thành phần 6",
+          "jobcodes": [
+            {
+              "id": 1,
+              "jobcode": "5.0729",
+              "descriptionJobcode": "Giám đốc phòng kinh doanh",
+              "status": "active"
+            },
+            {
+              "id": 2,
+              "jobcode": "4.0329",
+              "descriptionJobcode": "Giám đốc quản lý khách hàng",
+              "status": "active"
+            },
+            {
+              "id": 3,
+              "jobcode": "3.0625",
+              "descriptionJobcode": "Trợ lý quản lý khách hàng",
+              "status": "active"
+            }
+          ],
+          "note": "",
+          "status": "active",
+          "id": 12
+        }
+      ],
+      "note": "",
+      "status": "active",
+      "id": 4
+    }
+  ],
+  "jobcodes": [
+    {
+      "id": 1,
+      "jobcode": "5.0729",
+      "descriptionJobcode": "Giám đốc phòng kinh doanh",
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "jobcode": "4.0329",
+      "descriptionJobcode": "Giám đốc quản lý khách hàng",
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "jobcode": "3.0625",
+      "descriptionJobcode": "Trợ lý quản lý khách hàng",
+      "status": "active"
+    }
   ],
   "employees": [
     {
@@ -1225,22 +1441,3 @@
     }
   ]
 }
-=======
-    "posts": [{
-        "id": 1,
-        "title": "json-server",
-        "author": "typicode"
-    }],
-    "comments": [{
-        "id": 1,
-        "body": "some comment",
-        "postId": 1
-    }],
-    "profile": {
-        "name": "typicode"
-    }
-
-
-
-}
->>>>>>> 1226dc8c33f402b529c82f4b32197cd4cc5fcc61

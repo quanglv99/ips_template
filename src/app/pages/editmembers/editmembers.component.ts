@@ -5,7 +5,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {
-  FormControl,
   FormsModule,
   ReactiveFormsModule,
   FormGroup,
@@ -15,14 +14,15 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
+import { MembercontrolComponent } from '../membercontrol/membercontrol.component';
+import { AppService } from 'src/app/services/app.service';
+import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'src/app/services/member.service';
-import { JOBCODE_LIST } from 'src/app/shared/jobcode-value';
-import { MembercontrolComponent } from '../membercontrol/membercontrol.component';
-
 @Component({
   selector: 'app-editmembers',
   standalone: true,
+
   imports: [CommonModule,
     CommonModule,
     MatCheckboxModule,
@@ -41,69 +41,67 @@ import { MembercontrolComponent } from '../membercontrol/membercontrol.component
   styleUrls: ['./editmembers.component.scss']
 })
 export class EditmembersComponent implements OnInit, OnDestroy {
-  data: any;
-  subscription!: Subscription;
-  members = new FormControl('');
-  jobcodeList = JOBCODE_LIST;
-  editMemberForm!: FormGroup;
-  isDisable: boolean = false;
-  isFormDirty: boolean = false;
-  constructor(
-    private formBuilder: FormBuilder,
-    private member: MembercontrolComponent,
-    private dataService: MemberService,
-    private route: ActivatedRoute
-  ) {}
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-  }
+    jobcodes: any;
+    private subscription!: Subscription;
+    editMemberForm!: FormGroup;
+    isDisable: boolean = false;
+    isFormDirty: boolean = false;
+    data: any;
 
-  ngOnInit(): void {
-    this.subscription = this.dataService.getMemberData().subscribe((data) => {
-      if (data) {
-        this.data = data;
-        console.log('1',data);
-      } else {
-        const id = Number(this.route.snapshot.paramMap.get('id'));
-        if (id) {
-          this.getMemberById(id);
-          console.log('2',data);
+    constructor(
+      private formBuilder: FormBuilder,
+      private appService: AppService,
+      private http: HttpClient,
+      private route: ActivatedRoute,
+      private memberService: MemberService,
+      private member: MembercontrolComponent
+    ) { }
+
+    ngOnDestroy(): void {
+      this.subscription.unsubscribe();
+
+    }
+    ngOnInit(): void {
+      this.initData();
+      this.subscription = this.memberService.getMemberData().subscribe((data) => {
+        if (data) {
+          this.data = data;
+          console.log("data", this.data)
+        } else {
+          const id = Number(this.route.snapshot.paramMap.get('id'));
+          if (id) {
+            this.getMemberDetail(id);
+          }
         }
-      }
-      this.createForm();
-    });
+      });
+      this.initializeForm()
+    }
+    getMemberDetail(id: number): void {
+      this.data = this.member.dataSource.find((p: { id: number; }) => p.id === id)
+    }
 
-    this.editMemberForm.valueChanges.subscribe(() => {
-      this.isFormDirty = this.editMemberForm.dirty;
-    });
-    this.editMemberForm = this.formBuilder.group({
-      inputMember: [{ value: this.data?.nameMember, disabled: this.isDisable }],
-      jobcode: [
-        this.data?.jobcode?.map((jobcode: { nameJobcode: any }) => jobcode.nameJobcode),
-        { value: this.data?.jobcode.nameJobcode, disabled: this.isDisable },
-      ],
-      status: [{ value: this.data?.status, disabled: this.isDisable }],
-    });
-    this.editMemberForm.valueChanges.subscribe(() => {
-      this.isFormDirty = this.editMemberForm.dirty;
 
-    console.log('hihihi',this.data)
-    });
+
+    initData() {
+      const e_url = this.appService.getJobcodeList();
+      this.http.get(e_url).subscribe((result: any) => {
+        this.jobcodes = result;
+      });
+    }
+
+    initializeForm() {
+      this.editMemberForm = this.formBuilder.group({
+        nameMember: [this.data.nameMember],
+        jobcodes: [[]],
+        note: [''],
+      });
+
+      this.editMemberForm.valueChanges.subscribe(() => {
+        this.isFormDirty = this.editMemberForm.dirty;
+      });
+    }
+  updateMembers(): void {
+
   }
 
-  getMemberById(id: any): void {
-    this.data = this.member.dataSource.find((r) => r.id == id);
-  }
-
-  createForm(): void {
-    this.editMemberForm = this.formBuilder.group({
-      inputMember: { value: this.data?.nameMember },
-      jobcode: [
-        this.data?.jobcodes.map((jobcode: { nameJobcode: any }) => jobcode.nameJobcode) || [],
-        { value: this.data?.jobcodes, disabled: this.isDisable },
-      ],
-
-      status: { value: this.data?.status },
-    });
-  }
 }

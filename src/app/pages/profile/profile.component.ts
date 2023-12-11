@@ -15,7 +15,7 @@ import { map } from 'rxjs';
 import { UserDetailModel } from 'src/app/shared/user-detail';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { result } from 'lodash';
+// import { result } from 'lodash';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
 @Component({
   selector: 'app-profile',

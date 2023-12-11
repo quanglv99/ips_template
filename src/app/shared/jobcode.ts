@@ -1,7 +1,7 @@
 export interface JobcodeModel {
   id: number;
-  nameJobcode: string;
+  jobcode: string;
   descriptionJobcode: string;
-  action: string;
+  active: string;
 
 }
