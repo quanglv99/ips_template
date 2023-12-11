@@ -11,8 +11,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ConfigService } from 'src/app/services/config.service';
-import { MemberConfigModel } from 'src/app/shared/memberConfig';
-import { JobcodeModel } from 'src/app/shared/jobcode';
+import { VaultConfigModel } from 'src/app/shared/models/vault-config.models';
+import { JobcodeModel } from 'src/app/shared/models/jobcode.models';
 
 const ELEMENT_DATA: JobcodeModel[] = [
   {

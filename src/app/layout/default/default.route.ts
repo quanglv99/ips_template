@@ -15,46 +15,42 @@ export default [
           ),
       },
       {
-        path: 'my-work',
-        loadChildren: () =>
-          import('../../pages/mywork/mywork.route')
-      },
-      {
-        path: 'work-for-me',
-        loadComponent: () =>
-          import('../../pages/workforme/workforme.component').then(
-            (c) => c.WorkformeComponent
-          ),
-      },
-      {
         path: 'my-assign',
-        loadChildren: () =>
-          import('../../pages/myassign/my-assign.route')
+        loadChildren: () => import('../../pages/my-assign/my-assign.route'),
       },
       {
-        path: 'accept-assign',
+        path: 'received-assign',
         loadComponent: () =>
-          import('../../pages/acceptassign/acceptassign.component').then(
-            (c) => c.AcceptassignComponent
+          import('../../pages/received-assign/received-assign.component').then(
+            (c) => c.ReceivedAssignComponent
           ),
       },
       {
-        path: 'approve-assign',
+        path: 'my-delegate',
+        loadChildren: () => import('../../pages/my-delegate/my-delegate.route'),
+      },
+      {
+        path: 'received-delegate',
         loadComponent: () =>
-          import('../../pages/approveassign/approveassign.component').then(
-            (c) => c.ApproveassignComponent
-          ),
+          import(
+            '../../pages/received-delegate/received-delegate.component'
+          ).then((c) => c.ReceivedDelegateComponent),
+      },
+      {
+        path: 'approve-delegate',
+        loadComponent: () =>
+          import(
+            '../../pages/approve-delegate/approve-delegate.component'
+          ).then((c) => c.ApproveDelegateComponent),
       },
       {
         path: 'jobcode',
-        loadChildren: () =>
-          import('../../pages/jobcode/jobcode.route')
+        loadChildren: () => import('../../pages/jobcode/jobcode.route'),
       },
 
       {
         path: 'setting',
-        loadChildren: () =>
-          import('../../pages/setting/setting.route')
+        loadChildren: () => import('../../pages/setting/setting.route'),
       },
       {
         path: 'profile',
@@ -66,21 +62,22 @@ export default [
       {
         path: 'biometric-support',
         loadComponent: () =>
-          import('../../pages/biometric-support/biometric-support.component').then(
-            (c) => c.BiometricSupportComponent
-          ),
+          import(
+            '../../pages/biometric-support/biometric-support.component'
+          ).then((c) => c.BiometricSupportComponent),
       },
       {
         path: 'employees',
-        loadChildren: () =>
-          import('../../pages/employees/employee.route')
+        loadChildren: () => import('../../pages/employees/employee.route'),
       },
       {
-        path: 'approve-work',
+        path: 'approve-assign',
         loadComponent: () =>
-          import('../../pages/approve-work/approve-work.component').then(c => c.ApproveWorkComponent)
+          import('../../pages/approve-assign/approve-assign.component').then(
+            (c) => c.ApproveAssignComponent
+          ),
       },
-      { path: '**', redirectTo: 'dashboard' }
+      { path: '**', redirectTo: 'dashboard' },
     ],
   },
 ] as Route[];

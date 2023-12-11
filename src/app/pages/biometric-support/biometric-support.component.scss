@@ -25,6 +25,12 @@ th.mat-header-cell {
 
 
 ::ng-deep {
+  .mat-expansion-indicator
+    {
+        position: absolute;
+        top: 50;
+        left: 50;
+    }
   .table-header {
     @include customBoxShadow();
 
@@ -97,3 +103,24 @@ th.mat-header-cell {
      }
    }
 
+   .form-search {
+    display: inline-block;
+    justify-content: center;
+  
+    .search-container {
+      display: flex;
+      flex-flow: wrap;
+  
+      p {
+        margin-left: 10px;
+        max-width: 300px;
+      }
+    }
+  
+    .search-action {
+      .btn {
+        margin-left: 10px;
+      }
+    }
+  
+  }

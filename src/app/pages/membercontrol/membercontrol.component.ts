@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ConfigService } from 'src/app/services/config.service';
-import { MemberModel } from 'src/app/shared/members';
+import { MemberModel } from 'src/app/shared/models/member.models';
 
 const ELEMENT_DATA: MemberModel[] = [
   {

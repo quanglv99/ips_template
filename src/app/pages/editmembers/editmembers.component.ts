@@ -17,7 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ActivatedRoute } from '@angular/router';
 import { MemberService } from 'src/app/services/member.service';
-import { JOBCODE_LIST } from 'src/app/shared/jobcode-value';
+import { JOBCODE_LIST } from 'src/app/shared/const/jobcode-value';
 import { MembercontrolComponent } from '../membercontrol/membercontrol.component';
 
 @Component({
@@ -62,12 +62,10 @@ export class EditmembersComponent implements OnInit, OnDestroy {
     this.subscription = this.dataService.getMemberData().subscribe((data) => {
       if (data) {
         this.data = data;
-        console.log('1',data);
       } else {
         const id = Number(this.route.snapshot.paramMap.get('id'));
         if (id) {
           this.getMemberById(id);
-          console.log('2',data);
         }
       }
       this.createForm();
@@ -86,8 +84,6 @@ export class EditmembersComponent implements OnInit, OnDestroy {
     });
     this.editMemberForm.valueChanges.subscribe(() => {
       this.isFormDirty = this.editMemberForm.dirty;
-
-    console.log('hihihi',this.data)
     });
   }
 

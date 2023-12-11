@@ -22,7 +22,7 @@
             </div>
             <hr>
             <div class="p-16">
-                <button mat-flat-button color="accent" class="btn-logout">Đăng xuất</button>
+                <button mat-flat-button color="accent" class="btn-logout" (click)="onSigout()">Đăng xuất</button>
             </div>
 
         </mat-menu>
@@ -43,7 +43,6 @@
     <mat-sidenav-content class="page-wrapper">
         <div class="page-content">
             <router-outlet></router-outlet>
-            <ng-toast></ng-toast>
         </div>
     </mat-sidenav-content>
 </mat-sidenav-container>

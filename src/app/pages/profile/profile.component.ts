@@ -12,12 +12,12 @@ import {
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
-import { UserDetailModel } from 'src/app/shared/user-detail';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { result } from 'lodash';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
 import { NgToastModule, NgToastService } from 'ng-angular-popup';
+import { UserDetailModel } from 'src/app/shared/models/user-detail.models';
 @Component({
   selector: 'app-profile',
   standalone: true,

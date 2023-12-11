@@ -9,7 +9,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { NgToastModule, NgToastService } from 'ng-angular-popup';
-import { UserDetailModel } from 'src/app/shared/user-detail';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -22,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { StepProgressComponent } from 'src/app/shared/step-progress/step-progress.component';
 import { ImagePopupComponent } from 'src/app/shared/image-popup/image-popup.component';
+import { UserDetailModel } from 'src/app/shared/models/user-detail.models';
 
 @Component({
   selector: 'app-bio-support-popup',

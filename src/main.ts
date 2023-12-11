@@ -6,12 +6,14 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppService } from './app/services/app.service';
 import { APP_INITIALIZER } from '@angular/core';
 
-const routes: Routes = [
-  { path: '', redirectTo: 'default/dashboard', pathMatch: 'full' },
+export const routes: Routes = [
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', data: { preload: true }, loadComponent: () => import('./app/pages/login/login.component').then( r => r.LoginComponent) },
   {
-    path: 'default',
+    path: 'default', 
     loadChildren: () => import('./app/layout/default/default.route'),
   },
+  { path: '**', redirectTo: 'login' }
 ];
 
 const initializerConfigFn = (appService: AppService) => {

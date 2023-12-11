@@ -11,12 +11,12 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MemberConfigModel } from 'src/app/shared/memberConfig';
-import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { VaultConfigModel } from 'src/app/shared/models/vault-config.models';
+import { MEMBER_LIST } from 'src/app/shared/const/member-value';
 import { ConfigService } from 'src/app/services/config.service';
 
 
-const ELEMENT_DATA: MemberConfigModel[] = [
+const ELEMENT_DATA: VaultConfigModel[] = [
   {
     id: 1,
     nameConfig: 'Cấu hình 1',
