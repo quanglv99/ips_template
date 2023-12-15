@@ -1,4 +1,7 @@
 {
+    "MEMBER_LIST": "http://localhost:3000/members",
+    "JOBCODE_LIST": "http://localhost:3000/jobcodes",
+    "CONFIG_MEMBER_LIST": "http://localhost:3000/configMembers",
 	"EMPLOYEES": "http://localhost:3000/employees",
 	"DELEGATE_LIST": "http://localhost:3000/delegate_list",
 	"ASSIGN_LIST": "http://localhost:3000/assign_list",

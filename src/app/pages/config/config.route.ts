@@ -7,6 +7,7 @@ export default [
     path: 'add-config',
     loadComponent: () => import('../addconfig/addconfig.component').then(r => r.AddconfigComponent)
   },
+
   {
     path: ':id',
     loadComponent: () => import('../editconfig/editconfig.component').then(r => r.EditconfigComponent)

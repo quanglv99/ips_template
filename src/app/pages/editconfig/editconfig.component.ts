@@ -63,9 +63,7 @@ export class EditconfigComponent implements OnInit, OnDestroy {
         this.data = data;
       } else {
         const id = Number(this.route.snapshot.paramMap.get('id'));
-        if (id) {
-          this.getConfigById(id);
-        }
+
       }
       this.createForm();
     });
@@ -87,9 +85,7 @@ export class EditconfigComponent implements OnInit, OnDestroy {
     });
   }
 
-  getConfigById(id: any): void {
-    this.data = this.config.dataSource.find((r) => r.id);
-  }
+
 
   createForm(): void {
     this.editConfigForm = this.formBuilder.group({

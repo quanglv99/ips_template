@@ -17,5 +17,8 @@ export default [
     path: 'jobcode',
     loadChildren: () => import('../../pages/jobcode/jobcode.route')
   },
-
+{
+  path: 'foundationtree',
+  loadChildren: ()=> import('../../pages/foundationtree/foundationtree.route')
+}
 ] as Route;
