@@ -62,7 +62,7 @@ export class ApproveAssignPopupComponent {
 
   initializeForm() {
     this.updateWorkForm = this.formBuilder.group({
-      branchname: [{ value: this.data.branchname, disabled: this.isDisable }],
+      branchname: [{ value: this.data.branch.branchname, disabled: this.isDisable }],
       member: [{ value: this.data.member.name, disabled: this.isDisable }],
       owner: [
         {

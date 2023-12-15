@@ -1,9 +1,10 @@
+import { BranchModel } from "./branch.models";
 import { Employee } from "./employee.models";
 import { MemberModel } from "./member.models";
 
 export interface DelegateModel {
     id: number;
-    branchname: string;
+    branch: BranchModel;
     member: MemberModel;
     startDate: string;
     endDate: string;

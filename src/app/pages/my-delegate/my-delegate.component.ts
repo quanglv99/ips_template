@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,16 +13,20 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from 'src/app/services/app.service';
-import { Observable } from 'rxjs';
+import { Observable, map, startWith } from 'rxjs';
 import { TRAN_STATUS } from 'src/app/shared/const/tran-status';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MEMBER_LIST } from 'src/app/shared/const/member-value';
 import { DelegateModel } from 'src/app/shared/models/delegate-models';
 import { MyDelegatePopupComponent } from 'src/app/popups/my-delegate-popup/my-delegate-popup.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { BranchModel } from 'src/app/shared/models/branch.models';
+import { Employee } from 'src/app/shared/models/employee.models';
+import { MemberModel } from 'src/app/shared/models/member.models';
 
 @Component({
   selector: 'app-my-delegate',
@@ -44,6 +48,8 @@ import { MyDelegatePopupComponent } from 'src/app/popups/my-delegate-popup/my-de
     MatSelectModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatAutocompleteModule,
+    AsyncPipe,
   ],
   templateUrl: './my-delegate.component.html',
   styleUrls: ['./my-delegate.component.scss'],
@@ -73,6 +79,21 @@ export class MyDelegateComponent implements OnInit {
   isOpen =true
   memberFilter = MEMBER_LIST;
   statusFilter = TRAN_STATUS;
+  branches: any;
+  filteredOptions!: any;
+  myControl = new FormControl<string | BranchModel>('');
+  branchSelected: any;
+  memberSelected: any;
+  memberControl = new FormControl<string | MemberModel>('');
+  memberOptions: any;
+  ownerFilter: any;
+  receiverFilter: any;
+  ownerSelected: any;
+  receiverSelected: any;
+  ownerControl = new FormControl<string | Employee>('');
+  receiverControl = new FormControl<string | Employee>('');
+  ownerOptions: any;
+  receiverOptions: any;
   constructor(
     private dialog: MatDialog,
     private http: HttpClient,
@@ -90,8 +111,160 @@ export class MyDelegateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.formSearchInitialize();
     this.initSearch();
     this.initDataTable();
+  }
+
+  // init form search
+  formSearchInitialize() {
+    this.http.get(this.appConfig.getEmployees()).subscribe((result) => {
+      this.ownerFilter = result;
+      this.receiverFilter = result;
+      this.ownerOptions = this.ownerControl.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          const name = typeof value === 'string' ? value : value?.fullname;
+          return name
+            ? this._filterOwner(name as string)
+            : this.ownerFilter.slice();
+        })
+      );
+      this.receiverOptions = this.receiverControl.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          const name = typeof value === 'string' ? value : value?.fullname;
+          return name
+            ? this._filterReceiver(name as string)
+            : this.receiverFilter.slice();
+        })
+      );
+    });
+
+    this.http.get(this.appConfig.getBranches()).subscribe((result: any) => {
+      this.branches = result;
+      this.filteredOptions = this.myControl.valueChanges.pipe(
+        startWith(''),
+        map((value) => {
+          const name = typeof value === 'string' ? value : value?.branchname;
+          return name ? this._filter(name as string) : this.branches.slice();
+        })
+      );
+    });
+
+    this.memberOptions = this.memberControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name
+          ? this._filterMember(name as string)
+          : this.memberFilter.slice();
+      })
+    );
+  }
+
+  clearSelection() {
+    this.ownerOptions = this.ownerControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.fullname;
+        return name
+          ? this._filterOwner(name as string)
+          : this.ownerFilter.slice();
+      })
+    );
+    this.receiverOptions = this.receiverControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.fullname;
+        return name
+          ? this._filterReceiver(name as string)
+          : this.receiverFilter.slice();
+      })
+    );
+    this.memberOptions = this.memberControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.name;
+        return name
+          ? this._filterMember(name as string)
+          : this.memberFilter.slice();
+      })
+    );
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map((value) => {
+        const name = typeof value === 'string' ? value : value?.branchname;
+        return name ? this._filter(name as string) : this.branches.slice();
+      })
+    );
+  }
+
+  //branch search
+  onSelected(event: any) {
+    this.branchSelected = event;
+  }
+  displayFn(branch: BranchModel): string {
+    return branch ? branch.branchname : '';
+  }
+
+  private _filter(branchname: string): BranchModel[] {
+    const filterValue = branchname.toLowerCase();
+
+    return this.branches.filter((branch: { branchname: string }) =>
+      branch.branchname.toLowerCase().includes(filterValue)
+    );
+  }
+
+  //owner search
+  onOwnerSelected(event: any) {
+    this.ownerSelected = event;
+  }
+
+  displayFnOwner(owner: Employee): string {
+    return owner ? `${owner.code}-${owner.fullname}` : '';
+  }
+
+  private _filterOwner(fullname: string): Employee[] {
+    const filterValue = fullname.toLowerCase();
+
+    return this.ownerFilter.filter((owner: { fullname: string }) =>
+      owner.fullname.toLowerCase().includes(filterValue)
+    );
+  }
+
+  //receiver search
+  onReceiverSelected(event: any) {
+    this.receiverSelected = event;
+  }
+
+  displayFnReceiver(receiver: Employee): string {
+    return receiver ? `${receiver.code}-${receiver.fullname}` : '';
+  }
+
+  private _filterReceiver(fullname: string): Employee[] {
+    const filterValue = fullname.toLowerCase();
+
+    return this.receiverFilter.filter((receiver: { fullname: string }) =>
+      receiver.fullname.toLowerCase().includes(filterValue)
+    );
+  }
+
+  // member search
+  onMemberSelected(event: any) {
+    this.memberSelected = event;
+  }
+
+  displayFnMember(member: MemberModel): string {
+    return member ? member.name : '';
+  }
+
+  private _filterMember(membername: string): MemberModel[] {
+    const filterValue = membername.toLowerCase();
+
+    return this.memberFilter.filter((member: { name: any }) =>
+      member.name.toLowerCase().includes(filterValue)
+    );
   }
 
   initDataTable() {
@@ -109,19 +282,28 @@ export class MyDelegateComponent implements OnInit {
       });
     }
   }
-
+  //onclick refresh
   refreshSearch() {
     this.initSearch();
-    this.onSearch();
+    this.myControl.reset();
+    this.receiverControl.reset();
+    this.ownerControl.reset();
+    this.memberControl.reset();
+    this.branchSelected = null;
+    this.memberSelected = null;
+    this.ownerSelected = null;
+    this.receiverSelected = null;
+    this.clearSelection()
+    this.refreshTableData();
   }
 
   initSearch() {
     this.formSearch = this.formBuilder.group({
-      branchnameInput: [''],
+      branchInput: [''],
       startDateInput: [''],
       endDateInput: [''],
       ownerInput: [''],
-      employeeInput: [''],
+      receiverInput: [''],
       memberInput: [''],
       statusInput: [''],
     });
@@ -130,35 +312,27 @@ export class MyDelegateComponent implements OnInit {
   onSearch() {
     const url = this.appConfig.getDelegateUrl();
     const filterParams = this.formSearch.value;
+    filterParams.branchInput = this.branchSelected;
+    filterParams.memberInput = this.memberSelected;
+    filterParams.ownerInput = this.ownerSelected;
+    filterParams.receiverInput = this.receiverSelected;
 
     this.http.get(url).subscribe((result: any) => {
       this.data = result
         .filter((item: DelegateModel) => {
           return (
-            (filterParams.branchnameInput === '' ||
-              item.branchname
-                .toLowerCase()
-                .includes(filterParams.branchnameInput.toLowerCase())) &&
+            (!filterParams.branchInput ||
+              item.branch.id === filterParams.branchInput.id) &&
             (!filterParams.startDateInput ||
               new Date(item.createdDate) >= filterParams.startDateInput) &&
             (!filterParams.endDateInput ||
               new Date(item.createdDate) <= filterParams.endDateInput) &&
-            (filterParams.ownerInput === '' ||
-              item.owner.code
-                .toLowerCase()
-                .includes(filterParams.ownerInput.toLowerCase()) ||
-              item.owner.fullname
-                .toLowerCase()
-                .includes(filterParams.ownerInput.toLowerCase())) &&
-            (filterParams.employeeInput === '' ||
-              item.employee.code
-                .toLowerCase()
-                .includes(filterParams.employeeInput.toLowerCase()) ||
-              item.employee.fullname
-                .toLowerCase()
-                .includes(filterParams.employeeInput.toLowerCase())) &&
-            (filterParams.memberInput === '' ||
-              item.member.id === filterParams.memberInput) &&
+            (!filterParams.ownerInput ||
+              item.owner.code === filterParams.ownerInput.code) &&
+            (!filterParams.receiverInput ||
+              item.employee.code === filterParams.receiverInput.code) &&
+            (!filterParams.memberInput ||
+              item.member.id === filterParams.memberInput.id) &&
             (filterParams.statusInput === '' ||
               item.status.id === filterParams.statusInput)
           );
@@ -172,20 +346,6 @@ export class MyDelegateComponent implements OnInit {
     });
   }
 
-  onChange($event: any) {
-    if ($event.value != 0) {
-      let filerData = this.data.filter(
-        (item: any) => item.status.id == $event.value
-      );
-      this.dataSource = new MatTableDataSource<DelegateModel>(filerData);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    } else {
-      this.dataSource = new MatTableDataSource<DelegateModel>(this.data);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
-  }
 
   deleteRow(element: any): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {

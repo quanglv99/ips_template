@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -23,6 +24,9 @@ import { MEMBER_LIST } from 'src/app/shared/const/member-value';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NgToastModule, NgToastService } from 'ng-angular-popup';
 import { TRAN_STATUS } from 'src/app/shared/const/tran-status';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { map, startWith } from 'rxjs';
+import { BranchModel } from 'src/app/shared/models/branch.models';
 
 @Component({
   selector: 'app-register-assign',
@@ -43,6 +47,8 @@ import { TRAN_STATUS } from 'src/app/shared/const/tran-status';
     ReactiveFormsModule,
     MatDialogModule,
     NgToastModule,
+    MatAutocompleteModule,
+    AsyncPipe,
   ],
   templateUrl: './register-assign.component.html',
   styleUrls: ['./register-assign.component.scss'],
@@ -51,6 +57,12 @@ export class RegisterAssignComponent implements OnInit {
   registerWorkForm!: FormGroup;
   employees: any;
   owners: any;
+  status = TRAN_STATUS;
+  members = MEMBER_LIST;
+  branches: any
+  filteredOptions!: any;
+  myControl = new FormControl<string | BranchModel>('');
+  branchSelected: any;
   constructor(
     private formBuilder: FormBuilder,
     private appService: AppService,
@@ -61,12 +73,41 @@ export class RegisterAssignComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.http.get(this.appService.getBranches()).subscribe(
+      (result) =>
+      {
+        this.branches = result
+        this.filteredOptions = this.myControl.valueChanges.pipe(
+          startWith(''),
+          map((value) => {
+            const name = typeof value === 'string' ? value : value?.branchname;
+            return name ? this._filter(name as string) : this.branches.slice();
+          })
+        );
+      }
+    )
     this.initData();
     this.initializeForm();
   }
+
+  displayFn(branch: BranchModel): string {
+    return branch ? branch.branchname : '';
+  }
+
+  private _filter(branchname: string): BranchModel[] {
+    const filterValue = branchname.toLowerCase();
+
+    return this.branches.filter((branch: { branchname: string }) =>
+      branch.branchname.toLowerCase().includes(filterValue)
+    );
+  }
+
+  onSelected(event: any) {
+    this.branchSelected = event;
+  }
   initializeForm() {
     this.registerWorkForm = this.formBuilder.group({
-      branchname: ['', Validators.required],
+      branch: [''],
       owner: [{ value: this.owners }, Validators.required],
       member: ['', Validators.required],
       startDate: ['', Validators.required],
@@ -100,7 +141,7 @@ export class RegisterAssignComponent implements OnInit {
     if (this.registerWorkForm.valid) {
       const formData = this.registerWorkForm.value;
       const apiUrl = this.appService.getAssignUrl();
-
+      formData.branch = this.branchSelected
       this.http.post(apiUrl, formData).subscribe(
         (response) => {
           this.toast.success({
@@ -120,16 +161,4 @@ export class RegisterAssignComponent implements OnInit {
       );
     }
   }
-
-  status = TRAN_STATUS;
-
-  states: string[] = [
-    'Tây Hồ',
-    'Hoàn Kiếm',
-    'Hai Bà Trưng',
-    'Hoàng Mai',
-    'Cầy Giấy',
-  ];
-
-  members = MEMBER_LIST;
 }

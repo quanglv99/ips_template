@@ -42,5 +42,10 @@ export class AppService {
     return this.appConfig.LOGOUT
   }
 
+  getBranches()
+  {
+    return this.appConfig.BRANCHES
+  }
+
 }
 
