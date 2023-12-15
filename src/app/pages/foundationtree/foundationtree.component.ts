@@ -16,7 +16,7 @@ import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-import { ConfigMember } from 'src/app/shared/config-member';
+import { ConfigMember } from 'src/app/shared/models/config-member';
 interface FoundationNode {
   id: number,
   name: string,

@@ -1,4 +1,4 @@
-import { MemberModel } from "./members";
+import { MemberModel } from "./member.models";
 
 export interface ConfigMember {
   id: number;

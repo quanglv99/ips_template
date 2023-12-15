@@ -10,9 +10,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ConfigService } from 'src/app/services/config.service';
-import { MemberConfigModel } from 'src/app/shared/memberConfig';
-import { JobcodeModel } from 'src/app/shared/jobcode';
+import { ConfigService } from 'src/app/services/config.service';;
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { JobcodeService } from 'src/app/services/jobcode.service';
@@ -21,6 +19,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { JobcodeDetailPopupComponent } from 'src/app/popups/jobcode-detail-popup/jobcode-detail-popup.component';
 import { AppService } from 'src/app/services/app.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+import { JobcodeModel } from 'src/app/shared/models/jobcode.models';
 
 
 @Component({

@@ -16,37 +16,11 @@ import { MEMBER_LIST } from 'src/app/shared/const/member-value';
 import { ConfigService } from 'src/app/services/config.service';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
-import { ConfigMember } from 'src/app/shared/config-member';
+import { ConfigMember } from 'src/app/shared/models/config-member';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
 import { Observable } from 'rxjs/internal/Observable';
-import { MatDialog } from '@angular/material/dialog';
-
-
-<<<<<<< HEAD
-import {  MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EditConfigDetailPopupComponent } from 'src/app/popups/edit-config-detail-popup/edit-config-detail-popup.component';
-=======
-const ELEMENT_DATA: VaultConfigModel[] = [
-  {
-    id: 1,
-    nameConfig: 'Cấu hình 1',
-    members: [MEMBER_LIST[0],MEMBER_LIST[1]],
-    noteConfig: 'Active',
-  },
-  {
-    id: 2,
-    nameConfig: 'Cấu hình 2',
-    members: [MEMBER_LIST[0],MEMBER_LIST[1],MEMBER_LIST[2]],
-    noteConfig: 'Inactive',
-  },
-  {
-    id: 3,
-    nameConfig: 'Cấu hình 3',
-    members: [MEMBER_LIST[1],MEMBER_LIST[2]],
-    noteConfig: 'Valid',
-  },
-];
->>>>>>> f4cccb6a9fb92cc85bbd5b7884a23e33834c99c7
 
 @Component({
   selector: 'app-config',

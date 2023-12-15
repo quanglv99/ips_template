@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { JobcodeModel } from 'src/app/shared/jobcode';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -15,6 +14,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { StepProgressComponent } from '../../shared/step-progress/step-progress.component';
 import {  ReactiveFormsModule } from '@angular/forms';
+import { JobcodeModel } from 'src/app/shared/models/jobcode.models';
 
 @Component({
   selector: 'app-jobcode-detail-popup',

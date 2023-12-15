@@ -11,21 +11,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ConfigService } from 'src/app/services/config.service';
-<<<<<<< HEAD
-import { MemberConfigModel } from 'src/app/shared/memberConfig';
-import { JobcodeModel } from 'src/app/shared/jobcode';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { JobcodeService } from 'src/app/services/jobcode.service';
-import { HttpClientModule } from '@angular/common/http';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { JobcodeDetailPopupComponent } from 'src/app/popups/jobcode-detail-popup/jobcode-detail-popup.component';
 import { AppService } from 'src/app/services/app.service';
+import { JobcodeService } from 'src/app/services/jobcode.service';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
-=======
-import { VaultConfigModel } from 'src/app/shared/models/vault-config.models';
 import { JobcodeModel } from 'src/app/shared/models/jobcode.models';
->>>>>>> f4cccb6a9fb92cc85bbd5b7884a23e33834c99c7
 
 
 

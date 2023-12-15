@@ -17,9 +17,8 @@ import { StepProgressComponent } from '../../shared/step-progress/step-progress.
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
-import { MemberModel } from 'src/app/shared/members';
-import { JobcodeModel } from 'src/app/shared/jobcode';
-import { ConfigMember } from 'src/app/shared/config-member';
+import { ConfigMember } from 'src/app/shared/models/config-member';
+import { MemberModel } from 'src/app/shared/models/member.models';
 
 @Component({
   selector: 'app-edit-config-detail-popup',

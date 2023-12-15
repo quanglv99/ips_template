@@ -17,10 +17,10 @@ import { StepProgressComponent } from '../../shared/step-progress/step-progress.
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
-import { MemberModel } from 'src/app/shared/members';
-import { JobcodeModel } from 'src/app/shared/jobcode';
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { JobcodeModel } from 'src/app/shared/models/jobcode.models';
+import { MemberModel } from 'src/app/shared/models/member.models';
 @Component({
   selector: 'app-editmember-detail-popup',
   standalone: true,
