@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ConfigService } from 'src/app/services/config.service';
+<<<<<<< HEAD
 import { MemberModel } from 'src/app/shared/members';
 import { AppService } from 'src/app/services/app.service';
 import { HttpClient } from '@angular/common/http';
@@ -21,6 +22,9 @@ import { MemberService } from 'src/app/services/member.service';
 import { EditmemberDetailPopupComponent } from 'src/app/popups/editmember-detail-popup/editmember-detail-popup.component';
 import { Observable } from 'rxjs/internal/Observable';
 import { ConfirmDialogComponent } from 'src/app/shared/confirm-dialog/confirm-dialog.component';
+=======
+import { MemberModel } from 'src/app/shared/models/member.models';
+>>>>>>> f4cccb6a9fb92cc85bbd5b7884a23e33834c99c7
 
 @Component({
   selector: 'app-membercontrol',

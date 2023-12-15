@@ -9,7 +9,7 @@
 }
 
 .step-wizard-item{
-    padding: 0 20px;
+    padding: 0 15px;
     flex-basis: 0;
     -webkit-box-flex: 1;
     -ms-flex-positive:1;
@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     text-align: center;
-    min-width: 120px;
+    min-width: 100px;
     position: relative;
 }
 .step-wizard-item + .step-wizard-item:after{
@@ -71,7 +71,7 @@
 }
 .progress-label{
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
     margin-top: 10px;
 }
 .current-item .progress-count:before,

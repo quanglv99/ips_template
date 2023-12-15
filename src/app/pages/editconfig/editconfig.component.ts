@@ -17,7 +17,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfigComponent } from '../config/config.component';
 import { ActivatedRoute } from '@angular/router';
-import { MEMBER_LIST } from 'src/app/shared/member-value';
+import { MEMBER_LIST } from 'src/app/shared/const/member-value';
 import { ConfigService } from 'src/app/services/config.service';
 @Component({
   selector: 'app-editconfig',

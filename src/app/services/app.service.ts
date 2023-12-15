@@ -17,23 +17,16 @@ export class AppService {
           })
   }
 
-  getWorkList():string{
-    return this.appConfig.WORK_LIST
+  getAssignUrl():string{
+    return this.appConfig.ASSIGN_LIST
   }
 
   getEmployees():string{
     return this.appConfig.EMPLOYEES
   }
 
-  getWorkStatus():string{
-    return this.appConfig.WORK_STATUS
-  }
-  getAssignStatus():string{
-    return this.appConfig.ASSIGN_STATUS
-  }
-
-  getAssignList():string{
-    return this.appConfig.ASSIGN_LIST
+  getDelegateUrl():string{
+    return this.appConfig.DELEGATE_LIST
   }
 
   getUserDetail():string{
@@ -47,6 +40,16 @@ export class AppService {
   }
   getConfigMemberList(): string{
     return this.appConfig.CONFIG_MEMBER_LIST
+  }
+
+  getLoginApi()
+  {
+    return this.appConfig.LOGIN
+  }
+
+  getLogOutUrl()
+  {
+    return this.appConfig.LOGOUT
   }
 
 }
